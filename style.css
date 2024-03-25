@@ -60,7 +60,13 @@ main {
     text-align: center;
 }
 
+.hidden{
+    display: none;
+}
 
+.display{
+    display: block;
+}
 
 
 #start-quiz button{

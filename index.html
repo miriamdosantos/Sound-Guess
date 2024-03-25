@@ -21,10 +21,25 @@
             <p>Click on "START QUIZ" to begin.</p>
         </div>
 
-        <div id="start-quiz">
+        <div id="start-quiz" >
             <button>START QUIZ</button>
         </div>
-
+        <div id="question-container" class="hidden display">
+            <p id="question">Pergunta aqui...</p>
+            <ul id="options">
+                <li><button class="option">Opção 1</button></li>
+                <li><button class="option">Opção 2</button></li>
+                <li><button class="option">Opção 3</button></li>
+                <li><button class="option">Opção 4</button></li>
+            </ul>
+        </div>
+        <div id="feedback-container" class="hidden display">
+            <p id="feedback"></p>
+            <button id="next-btn">Próxima</button>
+        </div>
+        <div id="score-container" class="hidden display">
+            <p>Pontuação: <span id="score">0</span></p>
+        </div>
     </main>
     <script src="script.js"></script>
 </body>
