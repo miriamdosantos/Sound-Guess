@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 body {
-    background: url('pexels-mark-angelo-sampan-1587927.jpg' )  top  /cover ;
+    background: url('background-image.jpg' )  top  /cover ;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -74,5 +74,26 @@ main {
     font-size: 1.5rem;
     font-family: "Libre Baskerville", serif;
     font-weight: 700;
-    font-style: normal
+    font-style: normal;
+    animation: flash 2s 1s linear infinite ;
+}
+
+@keyframes flash{
+    0% {opacity: 1;}
+    50% {opacity: 0.6;}
+    100%{opacity: 1;}
+}
+
+.spinning {
+    animation: spin 3s linear ; /* Nome da animação, duração, modo de timing e repetição infinita */
+    transform-style: preserve-3d; /* Mantém a perspectiva 3D */
+}
+
+@keyframes spin {
+    from {
+        transform: rotateY(0deg); /* Rotação inicial */
+    }
+    to {
+        transform: rotateY(360deg); /* Rotação completa */
+    }
 }
