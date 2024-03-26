@@ -64,14 +64,14 @@ header img {
     background-color:#bbafc1 ;
     padding: 20px;
     border-radius: 12px;
-    margin-top: 1.2rem;
+    margin-top: 1rem;
     margin-bottom: 0;
     width:100%;
     
 }
 
 #question {
-    font-size: 1.5em;
+    font-size: 1.3em;
     
         font-family: "Libre Baskerville", serif;
         font-weight: 700;
@@ -85,6 +85,14 @@ header img {
     padding: 0;
 }
 
+#feedback{
+    text-align: center;
+    font-size: 1.2em;
+    color:  #fff;
+    font-family: "Libre Baskerville", serif;
+    font-weight: 700;
+    font-style: normal;
+}
 .option{
     font-family: "Libre Baskerville", serif;
     font-weight: 400;

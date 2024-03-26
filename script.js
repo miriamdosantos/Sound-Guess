@@ -4,24 +4,28 @@ document.addEventListener("DOMContentLoaded", function() {
     let questionContainer = document.getElementById('question-container');
     let feedbackContainer = document.getElementById('feedback-container');
     let scoreContainer = document.getElementById('score-container');
-    
-
+    let currentQuestionIndex = 0;
 
     startQuizButton.addEventListener('click', function() {
-        // Oculta o botão "START QUIZ"
         startQuizButton.classList.add('hidden');
-
-        // Mostra os elementos de pergunta, feedback e pontuação
         questionContainer.classList.remove('hidden');
         feedbackContainer.classList.remove('hidden');
         scoreContainer.classList.remove('hidden');
-
-        // Oculta a instrução inicial
         instructionContainer.classList.add('hidden');
-        showQuestion(musicQuiz[0]);
+        showQuestion(musicQuiz[currentQuestionIndex]);
+        incrementScore();
+    });
+
+    let nextButton = document.getElementById('next-btn');
+    nextButton.addEventListener('click', function() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < musicQuiz.length) {
+            showQuestion(musicQuiz[currentQuestionIndex]);
+        } else {
+            alert('Quiz completed!');
+        }
     });
 });
-
 const musicQuiz = [
     {
         question: "Who is often referred to as the 'King of Pop'?",
@@ -78,17 +82,15 @@ const musicQuiz = [
         correctAnswer: "Ed Sheeran"
     }
 ]
-function showQuestion (quizItem){
+function showQuestion(quizItem) {
     document.getElementById('question').textContent = quizItem.question;
-    showOptions(quizItem.options,quizItem.correctAnswer)
-    
-    
+    showOptions(quizItem.options, quizItem.correctAnswer);
 }
 
-function showOptions (options, correctAnswer){
+function showOptions(options, correctAnswer) {
     let optionButtons = document.querySelectorAll('.option');
     let feedback = document.getElementById('feedback');
-    for (let i = 0; i<options.length; i++){
+    for (let i = 0; i < options.length; i++) {
         optionButtons[i].textContent = options[i];
         optionButtons[i].addEventListener('click', function() {
             if (options[i] === correctAnswer) {
@@ -101,9 +103,10 @@ function showOptions (options, correctAnswer){
         });
     }
 }
+
 function incrementScore() {
-
     let oldScore = parseInt(document.getElementById("score").innerText);
-    document.getElementById("score").innerText = ++oldScore;
-
+    let scoreContainer = document.getElementById("score");
+    let numberOfQuestions = Object.keys(musicQuiz).length;
+    scoreContainer.innerHTML = oldScore++ + "/" + numberOfQuestions;
 }
