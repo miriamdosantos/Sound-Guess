@@ -15,11 +15,11 @@ body {
 header {
   
     color: #fff;
-    padding: 2px;
+    padding: 20px;
     text-align: center;
     display: flex;
     justify-content: center;
-    height: 30%;
+    height: 20vh;
     
 }
 
@@ -39,13 +39,13 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 100%;
-    padding: 0 20px;
+   flex:1;
+    padding:  20px;
 }
 /*Style to instruction to start game*/
 #instruction-container  {
-   margin-top:0 ;
-   
+  
+   margin-top: 20px; 
     color: #ffffff;
     font-family: "Libre Baskerville", serif;
 
@@ -68,7 +68,7 @@ main {
     padding: 20px;
     border-radius: 12px;
     margin-top: 1.2rem;
-    margin-bottom: 20px;
+    margin-bottom: 0
     
 }
 
