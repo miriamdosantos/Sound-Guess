@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Oculta a instrução inicial
         instructionContainer.classList.add('hidden');
+        showQuestion(musicQuiz[0]);
     });
 });
 
@@ -79,13 +80,30 @@ const musicQuiz = [
 ]
 function showQuestion (quizItem){
     document.getElementById('question').textContent = quizItem.question;
-    showOptions(quizItem.options)
+    showOptions(quizItem.options,quizItem.correctAnswer)
+    
     
 }
 
-function showOptions (options){
+function showOptions (options, correctAnswer){
     let optionButtons = document.querySelectorAll('.option');
-    for (let i = 0; i<options.lenght; i++){
+    let feedback = document.getElementById('feedback');
+    for (let i = 0; i<options.length; i++){
         optionButtons[i].textContent = options[i];
+        optionButtons[i].addEventListener('click', function() {
+            if (options[i] === correctAnswer) {
+                feedback.innerText = "Correct Answer";
+                incrementScore();
+            } else {
+                feedback.innerText = "Incorrect Answer";
+            }
+            feedback.classList.remove('hidden'); // Mostra o feedback após a seleção
+        });
     }
+}
+function incrementScore() {
+
+    let oldScore = parseInt(document.getElementById("score").innerText);
+    document.getElementById("score").innerText = ++oldScore;
+
 }
