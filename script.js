@@ -7,14 +7,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     startQuizButton.addEventListener('click', function() {
         // Oculta o botão "START QUIZ"
-        startQuizButton.style.display = 'none';
+        startQuizButton.classList.add('hidden');
 
         // Mostra os elementos de pergunta, feedback e pontuação
-        questionContainer.style.display = 'block';
-        feedbackContainer.style.display = 'block';
-        scoreContainer.style.display = 'block';
+        questionContainer.classList.remove('hidden');
+        feedbackContainer.classList.remove('hidden');
+        scoreContainer.classList.remove('hidden');
 
         // Oculta a instrução inicial
-        instructionContainer.style.display = 'none';
+        instructionContainer.classList.add('hidden');
     });
 });
