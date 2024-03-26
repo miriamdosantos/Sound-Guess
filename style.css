@@ -39,12 +39,12 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    flex: 1 0 auto;
-    margin: 20px auto;
+    height: 100%;
     padding: 0 20px;
 }
 /*Style to instruction to start game*/
 #instruction-container  {
+   margin-top:0 ;
    
     color: #ffffff;
     font-family: "Libre Baskerville", serif;
@@ -59,7 +59,7 @@ main {
     
 }
 #instruction-container p{
-    padding: 15px; 
+    padding: 10px; 
     text-align: center;
 }
 
@@ -141,7 +141,7 @@ main {
 
 #start-quiz button{
     padding: 10px 20px;
-    margin-top: 1.8rem;
+    margin-top: 1.2rem;
     background-color: #0c0110;
     color: #fff;
     border: 2px solid #fff;
