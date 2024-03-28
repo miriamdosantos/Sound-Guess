@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let currentQuestionIndex = 0;
     let score =0;
     let timeCountdown = document.getElementById('time');
+    
 
     startQuizButton.addEventListener('click', function() {
         startQuizButton.classList.add('hidden');
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
         showQuestion(musicQuiz[currentQuestionIndex]);
         updateScoreDisplay(0);
         timeCountdown.classList.remove('hidden');
+        startCountdown(6); // Inicia uma contagem regressiva de 10 segundos
         
     });
 
@@ -161,11 +163,17 @@ function startCountdown(durationSeconds) {
       } else {
         // Se o countdown estiver completo, limpa o intervalo e executa ações adicionais
         clearInterval(intervalId);
-        alert('Countdown completed!');
+        let progressDiv = document.getElementById('time');
+        progressDiv.style.display= 'none';
+       let messageFinishTime = document.getElementById('time-finish');
+       messageFinishTime.classList.remove('hidden');
+       messageFinishTime.classList.add('shaking');
+       let clockAudio = document.getElementById('clock-audio');
+       clockAudio.play();
       }
     }, intervalMs);
   }
   
   // Exemplo de uso:
-  startCountdown(10); // Inicia uma contagem regressiva de 10 segundos
+  
   
