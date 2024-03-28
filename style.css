@@ -38,7 +38,9 @@ header img {
     flex-direction: column;
     align-items: center; /* Alinha os elementos verticalmente no centro */
     justify-content: flex-start; /* Alinha os elementos no topo */
+    overflow-y:hidden;
     padding:  20px;
+    height: 100vh;
 
 }
 
@@ -67,6 +69,7 @@ header img {
     margin-top: 1rem;
     margin-bottom: 0;
     width:100%;
+    max-width: 600px;
     
 }
 
@@ -142,6 +145,8 @@ header img {
     font-family: "Libre Baskerville", serif;
     font-weight: 700;
     font-style: normal;
+    margin-top: auto;
+    margin-bottom:20px;
     
       
 }
