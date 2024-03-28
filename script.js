@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let feedbackContainer = document.getElementById('feedback-container');
     let scoreContainer = document.getElementById('score-container');
     let currentQuestionIndex = 0;
+  
 
     startQuizButton.addEventListener('click', function() {
         startQuizButton.classList.add('hidden');
@@ -13,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
         scoreContainer.classList.remove('hidden');
         instructionContainer.classList.add('hidden');
         showQuestion(musicQuiz[currentQuestionIndex]);
-        incrementScore();
+        
     });
 
     let nextButton = document.getElementById('next-btn');
@@ -26,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
 const musicQuiz = [
     {
         question: "Who is often referred to as the 'King of Pop'?",
@@ -90,23 +92,29 @@ function showQuestion(quizItem) {
 function showOptions(options, correctAnswer) {
     let optionButtons = document.querySelectorAll('.option');
     let feedback = document.getElementById('feedback');
+
+    // Remove os ouvintes de eventos anteriores
+    optionButtons.forEach(button => {
+        button.removeEventListener('click', checkAnswer);
+    });
+
     for (let i = 0; i < options.length; i++) {
         optionButtons[i].textContent = options[i];
-        optionButtons[i].addEventListener('click', function() {
-            if (options[i] === correctAnswer) {
-                feedback.innerText = "Correct Answer";
-                incrementScore();
-            } else {
-                feedback.innerText = "Incorrect Answer";
-            }
-            feedback.classList.remove('hidden'); // Mostra o feedback após a seleção
-        });
+        optionButtons[i].addEventListener('click', checkAnswer);
+    }
+    function checkAnswer(event) {
+        let selectedOption = event.target.textContent;
+        if (selectedOption === correctAnswer) {
+            incrementScore();
+            feedback.innerText = "Correct Answer";
+        } else {
+            feedback.innerText = "Incorrect Answer";
+        }
+        feedback.classList.remove('hidden');
     }
 }
 
 function incrementScore() {
     let oldScore = parseInt(document.getElementById("score").innerText);
-    let scoreContainer = document.getElementById("score");
-    let numberOfQuestions = Object.keys(musicQuiz).length;
-    scoreContainer.innerHTML = oldScore++ + "/" + numberOfQuestions;
+    document.getElementById("score").innerText = ++oldScore;
 }

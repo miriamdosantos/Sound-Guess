@@ -84,7 +84,14 @@ header img {
     list-style-type: none;
     padding: 0;
 }
-
+#total-questions-container{
+    text-align: center;
+    font-size: 10px;
+    color:  #fff;
+    font-family: "Libre Baskerville", serif;
+    font-weight: 700;
+    font-style: normal;
+}
 #feedback{
     text-align: center;
     font-size: 1.2em;
