@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let scoreContainer = document.getElementById('score-container');
     let currentQuestionIndex = 0;
     let score =0;
-    
+    let timeCountdown = document.getElementById('time');
 
     startQuizButton.addEventListener('click', function() {
         startQuizButton.classList.add('hidden');
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         instructionContainer.classList.add('hidden');
         showQuestion(musicQuiz[currentQuestionIndex]);
         updateScoreDisplay(0);
+        timeCountdown.classList.remove('hidden');
         
     });
 
@@ -128,3 +129,43 @@ let score = 0; // Declara a variável score aqui
         let totalQuestions = musicQuiz.length;
         document.getElementById("score").innerText = `${score}/${totalQuestions}`;
     }
+
+
+    // Função para iniciar o countdown
+function startCountdown(durationSeconds) {
+    // Seleciona a barra de progresso
+    let progress = document.getElementById('progress-bar-fill');
+    
+    // Converte a duração em segundos para milissegundos
+    let totalTime = durationSeconds * 1000;
+  
+    // Define o intervalo de tempo entre cada atualização da barra de progresso
+    let intervalMs = 100; // Atualização a cada 100 milissegundos
+  
+    // Inicializa o tempo atual como zero
+    let currentTime = 0;
+  
+    // Define um intervalo que será executado a cada intervalo de tempo especificado
+    let intervalId = setInterval(function() {
+      // Atualiza o tempo atual adicionando o intervalo de tempo
+      currentTime += intervalMs;
+  
+      // Verifica se o tempo atual não ultrapassou o tempo total
+      if (currentTime <= totalTime) {
+        // Calcula a largura da barra de progresso em porcentagem
+        let widthPercentage = (currentTime / totalTime) * 100;
+  
+        // Define a largura da barra de progresso na interface do usuário
+        progress.style.width = widthPercentage + '%';
+
+      } else {
+        // Se o countdown estiver completo, limpa o intervalo e executa ações adicionais
+        clearInterval(intervalId);
+        alert('Countdown completed!');
+      }
+    }, intervalMs);
+  }
+  
+  // Exemplo de uso:
+  startCountdown(10); // Inicia uma contagem regressiva de 10 segundos
+  
