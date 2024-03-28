@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", function() {
     let feedbackContainer = document.getElementById('feedback-container');
     let scoreContainer = document.getElementById('score-container');
     let currentQuestionIndex = 0;
-  
+    let score =0;
+    
 
     startQuizButton.addEventListener('click', function() {
         startQuizButton.classList.add('hidden');
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
         scoreContainer.classList.remove('hidden');
         instructionContainer.classList.add('hidden');
         showQuestion(musicQuiz[currentQuestionIndex]);
+        updateScoreDisplay(0);
         
     });
 
@@ -87,6 +89,7 @@ const musicQuiz = [
 function showQuestion(quizItem) {
     document.getElementById('question').textContent = quizItem.question;
     showOptions(quizItem.options, quizItem.correctAnswer);
+   
 }
 
 function showOptions(options, correctAnswer) {
@@ -106,6 +109,7 @@ function showOptions(options, correctAnswer) {
         let selectedOption = event.target.textContent;
         if (selectedOption === correctAnswer) {
             incrementScore();
+            updateScoreDisplay(score);
             feedback.innerText = "Correct Answer";
         } else {
             feedback.innerText = "Incorrect Answer";
@@ -114,7 +118,13 @@ function showOptions(options, correctAnswer) {
     }
 }
 
-function incrementScore() {
-    let oldScore = parseInt(document.getElementById("score").innerText);
-    document.getElementById("score").innerText = ++oldScore;
-}
+let score = 0; // Declara a variável score aqui
+
+    function incrementScore() {
+        score++;
+    }
+
+    function updateScoreDisplay(score) {
+        let totalQuestions = musicQuiz.length;
+        document.getElementById("score").innerText = `${score}/${totalQuestions}`;
+    }

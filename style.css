@@ -68,7 +68,6 @@ header img {
     border-radius: 12px;
     margin-top: 1rem;
     margin-bottom: 0;
-    width:100%;
     max-width: 600px;
     
 }
@@ -145,8 +144,7 @@ header img {
     font-family: "Libre Baskerville", serif;
     font-weight: 700;
     font-style: normal;
-    margin-top: auto;
-    margin-bottom:20px;
+
     
       
 }
