@@ -20,7 +20,9 @@ document.addEventListener("DOMContentLoaded", function() {
         showQuestion(musicQuiz[currentQuestionIndex]);
         updateScoreDisplay(0);
         timeCountdown.classList.remove('hidden');
-        startCountdown(6); 
+      
+   
+       
         
         
     });
@@ -31,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
         currentQuestionIndex++;
         if (currentQuestionIndex < musicQuiz.length) {
             showQuestion(musicQuiz[currentQuestionIndex]);
+           
         } else {
             alert('Quiz completed!');
         }
@@ -96,16 +99,16 @@ const musicQuiz = [
     }
 ]
 function showQuestion(quizItem) {
+   
     document.getElementById('question').textContent = quizItem.question;
     showOptions(quizItem.options, quizItem.correctAnswer);
-    startCountdown(6); 
+    startCountdown(6);
    
 }
 
 function showOptions(options, correctAnswer) {
     let optionButtons = document.querySelectorAll('.option');
     let feedback = document.getElementById('feedback');
-
     // Remove os ouvintes de eventos anteriores
     optionButtons.forEach(button => {
         button.removeEventListener('click', checkAnswer);
@@ -144,37 +147,51 @@ let score = 0; // Declara a variável score aqui
 
 
     function startCountdown(durationSeconds) {
-        console.log('startcountdown button clicked');
         let progress = document.getElementById('progress-bar-fill');
-        if (progress) {
-            progress.style.display = 'block'; // Exibir a barra de progresso imediatamente
-        }
-       
-        let totalTime = durationSeconds * 1000;
-        let intervalMs = 100;
-        let currentTime = 0;
+        let progressDiv = document.getElementById('time');
+        let messageFinishTime = document.getElementById('time-finish');
     
-        let intervalId = setInterval(function() {
-            currentTime += intervalMs;
-            if (currentTime <= totalTime) {
-                let widthPercentage = (currentTime / totalTime) * 100;
-                progress.style.width = widthPercentage + '%';
-            } else {
-                clearInterval(intervalId);
-                progress.style.display = 'none'; // Ocultar a barra de progresso quando o tempo acabar
-                let progressDiv = document.getElementById('time');
-                progressDiv.style.display = 'none';
-                let messageFinishTime = document.getElementById('time-finish');
-                messageFinishTime.classList.remove('hidden');
-                messageFinishTime.classList.add('shaking');
-                let clockAudio = document.getElementById('clock-audio');
-                if (clockAudio) {
-                    clockAudio.play();
-                    setTimeout(function() {
-                        messageFinishTime.classList.add('hidden');
-                        clockAudio.pause();
-                    }, 3000);
-                }
-            }
-        }, intervalMs);
+        if (progress && progressDiv && messageFinishTime) {
+            progress.style.display = 'block';
+            progressDiv.style.display = 'block';
+    
+            let totalTime = durationSeconds * 1000;
+            let intervalMs = 500;
+    
+            // Inicializa a barra de progresso como vazia
+            progress.style.width = '0%';
+    
+            // Exibe a barra de progresso
+            setTimeout(function() {
+                let currentTime = 0;
+                let intervalId = setInterval(function() {
+                    currentTime += intervalMs;
+                    if (currentTime <= totalTime) {
+                        let widthPercentage = (currentTime / totalTime) * 100;
+                        progress.style.width = widthPercentage + '%';
+                    } else {
+                        clearInterval(intervalId);
+                        progress.style.display = 'none';
+                        progressDiv.style.display = 'none';
+    
+                        // Exibe a imagem "time up" e reproduz o áudio
+                        messageFinishTime.classList.remove('hidden');
+                        messageFinishTime.classList.add('shaking');
+                        let clockAudio = document.getElementById('clock-audio');
+                        if (clockAudio) {
+                            clockAudio.play();
+                        }
+    
+                        // Oculta a imagem "time up" e pausa o áudio após um período específico
+                        setTimeout(function() {
+                            messageFinishTime.classList.add('hidden');
+                            if (clockAudio) {
+                                clockAudio.pause();
+                                clockAudio.currentTime = 0; // Retorna o áudio ao início
+                            }
+                        }, 3000); // Oculta a imagem e pausa o áudio após 3 segundos
+                    }
+                }, intervalMs);
+            }, 0); // Exibe a barra de progresso imediatamente
+        }
     }
