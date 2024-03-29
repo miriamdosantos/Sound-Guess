@@ -5,36 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SoundGuess</title>
+   
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <header>
-        <img src="logo.webp" alt="logo page" class="spinning" >
+        <img src="logo.webp" alt="logo page" class="spinning">
     </header>
-  
+
     <!-- Container para todo o conteúdo -->
     <section id="content">
         <!-- Mensagem antes de começar o quiz -->
-        <div id="instruction-container" >
+        <div id="instruction-container">
             <p>Hello!</p>
             <p>Welcome to <strong>SoundGuess</strong>, your music quiz! </p>
             <p>Answer the questions below to test your knowledge of music.</p>
             <p>Click on "START QUIZ" to begin.</p>
         </div>
 
-        <div id="start-quiz" class="flashing" >
+        <div id="start-quiz" class="flashing">
             <button>START QUIZ</button>
         </div>
-       <div id="time" class="hidden">
-        <p>TIME LEFT:</p>
-        <div class="progress-bar">
-            <div id="progress-bar-fill" class="progress-bar-fill"></div>
-          </div>
+        <div id="time" class="hidden">
+            <p>TIME LEFT:</p>
+            <div class="progress-bar">
+                <div id="progress-bar-fill" class="progress-bar-fill"></div>
+            </div>
         </div>
-        <div id = "time-finish" class="hidden">
-        <img src="times-up-red-sign-vector-24358187.webp" alt="Times up clock">
-        <audio id="clock-audio" class="hidden" src="retro-alarm-clock-ringing-soundroll-1-00-05.mp3" ></audio>
+        <div id="time-finish" class="hidden">
+            <img src="times-up-red-sign-vector-24358187.webp" alt="Times up clock">
+            <audio id="clock-audio" class="hidden" src="retro-alarm-clock-ringing-soundroll-1-00-05.mp3"></audio>
         </div>
         <div id="question-container" class="hidden">
             <p id="question">QUESTION</p>

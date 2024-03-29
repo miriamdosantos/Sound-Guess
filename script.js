@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function() {
     let startQuizButton = document.getElementById('start-quiz');
     let instructionContainer = document.getElementById('instruction-container');
@@ -10,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
 
     startQuizButton.addEventListener('click', function() {
+        console.log('Start quiz button clicked');
         startQuizButton.classList.add('hidden');
         questionContainer.classList.remove('hidden');
         feedbackContainer.classList.remove('hidden');
@@ -18,18 +20,22 @@ document.addEventListener("DOMContentLoaded", function() {
         showQuestion(musicQuiz[currentQuestionIndex]);
         updateScoreDisplay(0);
         timeCountdown.classList.remove('hidden');
-        startCountdown(6); // Inicia uma contagem regressiva de 10 segundos
+        startCountdown(6); 
+        
         
     });
 
     let nextButton = document.getElementById('next-btn');
     nextButton.addEventListener('click', function() {
+        console.log('Next button clicked');
         currentQuestionIndex++;
         if (currentQuestionIndex < musicQuiz.length) {
             showQuestion(musicQuiz[currentQuestionIndex]);
         } else {
             alert('Quiz completed!');
         }
+      
+
     });
 });
 
@@ -92,6 +98,7 @@ const musicQuiz = [
 function showQuestion(quizItem) {
     document.getElementById('question').textContent = quizItem.question;
     showOptions(quizItem.options, quizItem.correctAnswer);
+    startCountdown(6); 
    
 }
 
@@ -102,6 +109,7 @@ function showOptions(options, correctAnswer) {
     // Remove os ouvintes de eventos anteriores
     optionButtons.forEach(button => {
         button.removeEventListener('click', checkAnswer);
+        
     });
 
     for (let i = 0; i < options.length; i++) {
@@ -127,53 +135,46 @@ let score = 0; // Declara a variável score aqui
         score++;
     }
 
+
+
     function updateScoreDisplay(score) {
         let totalQuestions = musicQuiz.length;
         document.getElementById("score").innerText = `${score}/${totalQuestions}`;
     }
 
 
-    // Função para iniciar o countdown
-function startCountdown(durationSeconds) {
-    // Seleciona a barra de progresso
-    let progress = document.getElementById('progress-bar-fill');
+    function startCountdown(durationSeconds) {
+        console.log('startcountdown button clicked');
+        let progress = document.getElementById('progress-bar-fill');
+        if (progress) {
+            progress.style.display = 'block'; // Exibir a barra de progresso imediatamente
+        }
+       
+        let totalTime = durationSeconds * 1000;
+        let intervalMs = 100;
+        let currentTime = 0;
     
-    // Converte a duração em segundos para milissegundos
-    let totalTime = durationSeconds * 1000;
-  
-    // Define o intervalo de tempo entre cada atualização da barra de progresso
-    let intervalMs = 100; // Atualização a cada 100 milissegundos
-  
-    // Inicializa o tempo atual como zero
-    let currentTime = 0;
-  
-    // Define um intervalo que será executado a cada intervalo de tempo especificado
-    let intervalId = setInterval(function() {
-      // Atualiza o tempo atual adicionando o intervalo de tempo
-      currentTime += intervalMs;
-  
-      // Verifica se o tempo atual não ultrapassou o tempo total
-      if (currentTime <= totalTime) {
-        // Calcula a largura da barra de progresso em porcentagem
-        let widthPercentage = (currentTime / totalTime) * 100;
-  
-        // Define a largura da barra de progresso na interface do usuário
-        progress.style.width = widthPercentage + '%';
-
-      } else {
-        // Se o countdown estiver completo, limpa o intervalo e executa ações adicionais
-        clearInterval(intervalId);
-        let progressDiv = document.getElementById('time');
-        progressDiv.style.display= 'none';
-       let messageFinishTime = document.getElementById('time-finish');
-       messageFinishTime.classList.remove('hidden');
-       messageFinishTime.classList.add('shaking');
-       let clockAudio = document.getElementById('clock-audio');
-       clockAudio.play();
-      }
-    }, intervalMs);
-  }
-  
-  // Exemplo de uso:
-  
-  
+        let intervalId = setInterval(function() {
+            currentTime += intervalMs;
+            if (currentTime <= totalTime) {
+                let widthPercentage = (currentTime / totalTime) * 100;
+                progress.style.width = widthPercentage + '%';
+            } else {
+                clearInterval(intervalId);
+                progress.style.display = 'none'; // Ocultar a barra de progresso quando o tempo acabar
+                let progressDiv = document.getElementById('time');
+                progressDiv.style.display = 'none';
+                let messageFinishTime = document.getElementById('time-finish');
+                messageFinishTime.classList.remove('hidden');
+                messageFinishTime.classList.add('shaking');
+                let clockAudio = document.getElementById('clock-audio');
+                if (clockAudio) {
+                    clockAudio.play();
+                    setTimeout(function() {
+                        messageFinishTime.classList.add('hidden');
+                        clockAudio.pause();
+                    }, 3000);
+                }
+            }
+        }, intervalMs);
+    }
