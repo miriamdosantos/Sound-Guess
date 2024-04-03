@@ -65,9 +65,12 @@ header img {
 #time p{
     text-align: center;
     font-family: "Libre Baskerville", serif;
-    font-weight: 700;
-    font-style: normal;
-    color: #f1f0f0;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.2rem; 
+    font-style: italic;
+    color: #f6f5f5;
+    text-shadow: 3px 2px 2px #d1ace6;
 }
   
 .progress-bar {
@@ -169,7 +172,12 @@ header img {
     font-size: 1.2rem;
     box-shadow: 2px 5px 2px rgba(210, 29, 158, 0.5);
 }
-
+#next-btn:disabled {
+    background-color: #7f7f7f; /* Cor de fundo cinza */
+    color: #ccc; /* Cor do texto cinza claro */
+    cursor: not-allowed; /* Cursor de não permitido */
+    box-shadow: none; /* Remover sombra quando desabilitado */
+}
 #score-container {
     text-align: center;
     font-size: 1.2em;

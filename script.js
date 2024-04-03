@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", function() {
     let feedbackContainer = document.getElementById('feedback-container');
     let scoreContainer = document.getElementById('score-container');
     let currentQuestionIndex = 0;
-   
+    let optionSelected = false; // Variável para controlar se uma opção foi selecionada
+
     startQuizButton.addEventListener('click', function() {
         console.log('Start quiz button clicked');
         startQuizButton.classList.add('hidden');
@@ -18,17 +19,19 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     let nextButton = document.getElementById('next-btn');
+    nextButton.disabled = true; // Desabilitar o botão "Next" inicialmente
+
     nextButton.addEventListener('click', function() {
         console.log('Next button clicked');
         currentQuestionIndex++;
         if (currentQuestionIndex < musicQuiz.length) {
             showQuestion(musicQuiz[currentQuestionIndex]);
+            nextButton.disabled = true; // Desabilitar o botão "Next" após avançar
         } else {
             alert('Quiz completed!');
         }
     });
 });
-
 
 const musicQuiz = [
     {
@@ -103,26 +106,24 @@ function showQuestion(quizItem) {
 function showOptions(options, correctAnswer) {
     let optionButtons = document.querySelectorAll('.option');
     let feedback = document.getElementById('feedback');
-    let answerSelected = false; // Variável para controlar se a resposta foi selecionada
+    let nextButton = document.getElementById('next-btn');
 
-    // Remover event listeners e desabilitar botões após a seleção
-    optionButtons.forEach(button => {
-        button.disabled = false;
-        button.removeEventListener('click', checkAnswer); // Remova isso se não for necessário
-    });
+    optionSelected = false; // Reiniciar a variável de controle de seleção de opção
 
     for (let i = 0; i < options.length; i++) {
         optionButtons[i].textContent = options[i];
+        optionButtons[i].disabled = false; // Habilitar todas as opções
         optionButtons[i].addEventListener('click', function(event) {
-            if (!answerSelected) { // Verificar se a resposta já foi selecionada
-                clearInterval(intervalId);
-                checkAnswer(event, correctAnswer, optionButtons, feedback); // Passar feedback para a função checkAnswer
-                answerSelected = true; // Atualizar a variável para indicar que a resposta foi selecionada
-            }
+            clearInterval(intervalId);
+            checkAnswer(event, correctAnswer, optionButtons, feedback);
+            optionSelected = true; // Atualizar a variável para indicar que uma opção foi selecionada
+            nextButton.disabled = false; // Habilitar o botão "Next" após selecionar uma opção
         });
     }
-}
 
+    // Ocultar o feedback após mostrar as opções
+    feedback.classList.add('hidden');
+}
 
 function checkAnswer(event, correctAnswer, optionButtons, feedback) {
     console.log("checkAnswer called");
@@ -135,8 +136,8 @@ function checkAnswer(event, correctAnswer, optionButtons, feedback) {
     } else {
         feedback.innerText = "Incorrect Answer";
     }
-    feedback.classList.remove('hidden');
-    
+    feedback.classList.remove('hidden'); // Mostrar o feedback após a seleção
+
     // Desativar todos os botões após a seleção
     optionButtons.forEach(button => {
         button.disabled = true;
@@ -155,15 +156,20 @@ function updateScoreDisplay() {
 }
 
 let intervalId; // Variável para armazenar o intervalo do countdown
-let optionSelected = false; // Variável para controlar se uma opção foi selecionada
 
 function startCountdown(durationSeconds, progress, progressDiv, messageFinishTime) {
     let totalTime = durationSeconds * 1000;
-    let audioDuration = 11000; // Duração do áudio em milissegundos
     let intervalMs = 500;
     let currentTime = 0;
+    let audioPlayed = false; // Variável para controlar se o áudio já foi reproduzido
 
     progress.style.width = '0%';
+
+    let optionButtons = document.querySelectorAll('.option');
+    let clockAudio = document.getElementById('clock-audio');
+
+    // Ajustar a duração do áudio com base na duração total da contagem
+    let audioDuration = totalTime < 11000 ? totalTime : 11000; // Limite de 11 segundos para o áudio
 
     intervalId = setInterval(function() {
         currentTime += intervalMs;
@@ -176,16 +182,22 @@ function startCountdown(durationSeconds, progress, progressDiv, messageFinishTim
             progressDiv.style.display = 'none';
             messageFinishTime.classList.remove('hidden');
             messageFinishTime.classList.add('shaking');
-            let clockAudio = document.getElementById('clock-audio');
-            if (clockAudio) {
+            if (!audioPlayed && clockAudio) {
+                clockAudio.currentTime = 0; // Reiniciar a reprodução do áudio
                 clockAudio.play();
+                audioPlayed = true; // Marcar que o áudio foi reproduzido
             }
             setTimeout(function() {
                 messageFinishTime.classList.add('hidden');
                 if (clockAudio) {
                     clockAudio.pause();
                 }
-            }, audioDuration); // Tempo de duração do áudio
+                let nextButton = document.getElementById('next-btn');
+                nextButton.disabled = false;
+            }, 2000); // Tempo reduzido para 2 segundos para a imagem "times up"
+            optionButtons.forEach(button => {
+                button.disabled = true;
+            });
         }
     }, intervalMs);
 }
