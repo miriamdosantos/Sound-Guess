@@ -1,3 +1,5 @@
+let progressDiv; // Declarar a variável global progressDiv
+
 document.addEventListener("DOMContentLoaded", function() {
     let startQuizButton = document.getElementById('start-quiz');
     let instructionContainer = document.getElementById('instruction-container');
@@ -37,7 +39,8 @@ const musicQuiz = [
     {
         question: "Who is often referred to as the 'King of Pop'?",
         options: ["Elvis Presley", "Michael Jackson", "Prince", "Madonna"],
-        correctAnswer: "Michael Jackson"
+        correctAnswer: "Michael Jackson",
+        image:"michael.jpg"
     },
     {
         question: "Which band performed the hit song 'Bohemian Rhapsody'?",
@@ -89,18 +92,33 @@ const musicQuiz = [
         correctAnswer: "Ed Sheeran"
     }
 ]
+
 function showQuestion(quizItem) {
     let progress = document.getElementById('progress-bar-fill');
-    let progressDiv = document.getElementById('time');
+     progressDiv = document.getElementById('time'); //
     let messageFinishTime = document.getElementById('time-finish');
 
-    progress.style.display = 'block';
+    // Ocultar a imagem
+    document.getElementById('image-container').classList.add('hidden');
     progressDiv.style.display = 'block';
+    
+    // Exibir o question container
+    let questionContainer = document.getElementById('question-container');
+    questionContainer.classList.remove('hidden');
+
+    // Exibir a barra de progresso e resetar para 0%
+    progress.style.display = 'block';
+    progress.style.width = '0%';
+
+    // Ocultar a mensagem de tempo esgotado
     messageFinishTime.classList.add('hidden');
 
+    // Exibir a pergunta e as opções
     document.getElementById('question').textContent = quizItem.question;
     showOptions(quizItem.options, quizItem.correctAnswer);
-    startCountdown(6, progress, progressDiv, messageFinishTime);
+
+    // Iniciar a contagem regressiva
+    startCountdown(6, progress, messageFinishTime);
 }
 
 function showOptions(options, correctAnswer) {
@@ -132,9 +150,11 @@ function checkAnswer(event, correctAnswer, optionButtons, feedback) {
         incrementScore();
         console.log("Score incremented");
         updateScoreDisplay();
-        feedback.innerText = "Correct Answer";
+        feedback.innerText = "Resposta correta";
+        showImage(correctAnswer);
+        document.getElementById('question-container').classList.add('hidden');
     } else {
-        feedback.innerText = "Incorrect Answer";
+        feedback.innerText = "Resposta incorreta";
     }
     feedback.classList.remove('hidden'); // Mostrar o feedback após a seleção
 
@@ -144,6 +164,22 @@ function checkAnswer(event, correctAnswer, optionButtons, feedback) {
     });
 }
 
+function showImage(correctAnswer) {
+    let imageContainer = document.getElementById('image-container');
+    let artistImage = document.getElementById('artist-image');
+    for (let i = 0; i < musicQuiz.length; i++) {
+        let quizItem = musicQuiz[i];
+        if (quizItem.correctAnswer === correctAnswer && quizItem.image) {
+            artistImage.src = quizItem.image;
+            imageContainer.classList.remove('hidden');
+            // Oculta a div com o ID "time"
+            progressDiv.style.display = 'none';
+           
+    }
+        }
+        
+
+}
 let score = 0; // Declara a variável score aqui
 
 function incrementScore() {
@@ -157,13 +193,16 @@ function updateScoreDisplay() {
 
 let intervalId; // Variável para armazenar o intervalo do countdown
 
-function startCountdown(durationSeconds, progress, progressDiv, messageFinishTime) {
+function startCountdown(durationSeconds, progress, messageFinishTime) {
     let totalTime = durationSeconds * 1000;
     let intervalMs = 500;
     let currentTime = 0;
     let audioPlayed = false; // Variável para controlar se o áudio já foi reproduzido
 
     progress.style.width = '0%';
+
+    // Limpar o intervalo anterior, se houver
+    clearInterval(intervalId);
 
     let optionButtons = document.querySelectorAll('.option');
     let clockAudio = document.getElementById('clock-audio');
@@ -179,6 +218,7 @@ function startCountdown(durationSeconds, progress, progressDiv, messageFinishTim
         } else {
             clearInterval(intervalId);
             progress.style.display = 'none';
+            // Ocultar a div com o ID "time"
             progressDiv.style.display = 'none';
             messageFinishTime.classList.remove('hidden');
             messageFinishTime.classList.add('shaking');

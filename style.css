@@ -129,6 +129,16 @@ header img {
     font-family: "Libre Baskerville", serif;
     font-weight: 700;
     font-style: normal;
+
+}
+#image-container{
+    width: 100%;
+}
+#artist-image{
+    width:100%;
+    border: 5px solid #c8b5d2;
+    box-shadow: 4px 2px 2px #343036;
+   
 }
 #feedback{
     text-align: center;
