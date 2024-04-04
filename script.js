@@ -45,7 +45,8 @@ const musicQuiz = [
     {
         question: "Which band performed the hit song 'Bohemian Rhapsody'?",
         options: ["The Beatles", "Queen", "Led Zeppelin", "The Rolling Stones"],
-        correctAnswer: "Queen"
+        correctAnswer: "Queen",
+        image:"queen.jpg"
     },
     {
         question: "Which artist released the album 'Thriller' in 1982?",
@@ -150,11 +151,13 @@ function checkAnswer(event, correctAnswer, optionButtons, feedback) {
         incrementScore();
         console.log("Score incremented");
         updateScoreDisplay();
-        feedback.innerText = "Resposta correta";
+        feedback.innerText = "Correct Answer";
         showImage(correctAnswer);
         document.getElementById('question-container').classList.add('hidden');
+        playCorrectAudio(); 
     } else {
-        feedback.innerText = "Resposta incorreta";
+        feedback.innerText = "Incorrect Answer";
+        playIncorrectAudio(); 
     }
     feedback.classList.remove('hidden'); // Mostrar o feedback após a seleção
 
@@ -162,6 +165,19 @@ function checkAnswer(event, correctAnswer, optionButtons, feedback) {
     optionButtons.forEach(button => {
         button.disabled = true;
     });
+}
+function playCorrectAudio() {
+    let correctAudio = document.getElementById('correct-audio');
+    if (correctAudio) {
+        correctAudio.play();
+    }
+}
+
+function playIncorrectAudio() {
+    let incorrectAudio = document.getElementById('incorrect-audio');
+    if (incorrectAudio) {
+        incorrectAudio.play();
+    }
 }
 
 function showImage(correctAnswer) {
