@@ -27,6 +27,9 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log('Next button clicked');
         currentQuestionIndex++;
         if (currentQuestionIndex < musicQuiz.length) {
+            let feedbackAudio = document.getElementById('feedback-audio');
+            feedbackAudio.pause(); // Pausar o áudio de feedback atual
+            feedbackAudio.currentTime = 0; // Reiniciar o áudio de feedback
             showQuestion(musicQuiz[currentQuestionIndex]);
             nextButton.disabled = true; // Desabilitar o botão "Next" após avançar
         } else {
@@ -34,24 +37,24 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
-
 const musicQuiz = [
     {
         question: "Who is often referred to as the 'King of Pop'?",
         options: ["Elvis Presley", "Michael Jackson", "Prince", "Madonna"],
         correctAnswer: "Michael Jackson",
-        image:"michael.jpg"
+        image:"./assets/images/michael.jpg"
     },
     {
         question: "Which band performed the hit song 'Bohemian Rhapsody'?",
         options: ["The Beatles", "Queen", "Led Zeppelin", "The Rolling Stones"],
         correctAnswer: "Queen",
-        image:"queen.jpg"
+        image:"./assets/images/queen.jpg"
     },
     {
         question: "Which artist released the album 'Thriller' in 1982?",
         options: ["Madonna", "Elton John", "Michael Jackson", "David Bowie"],
-        correctAnswer: "Michael Jackson"
+        correctAnswer: "Michael Jackson",
+        image:
     },
     {
         question: "What is the name of Beyoncé's fanbase?",
@@ -93,10 +96,9 @@ const musicQuiz = [
         correctAnswer: "Ed Sheeran"
     }
 ]
-
 function showQuestion(quizItem) {
     let progress = document.getElementById('progress-bar-fill');
-     progressDiv = document.getElementById('time'); //
+    progressDiv = document.getElementById('time'); //
     let messageFinishTime = document.getElementById('time-finish');
 
     // Ocultar a imagem
@@ -147,17 +149,24 @@ function showOptions(options, correctAnswer) {
 function checkAnswer(event, correctAnswer, optionButtons, feedback) {
     console.log("checkAnswer called");
     let selectedOption = event.target.textContent;
+    let feedbackAudio = document.getElementById('feedback-audio');
+    let artistImage = document.getElementById('artist-image');
+    let questionContainer = document.getElementById('question-container');
+    let progressDiv = document.getElementById('time');
+    let messageFinishTime = document.getElementById('time-finish');
+
     if (selectedOption === correctAnswer) {
         incrementScore();
         console.log("Score incremented");
         updateScoreDisplay();
         feedback.innerText = "Correct Answer";
-        showImage(correctAnswer);
-        document.getElementById('question-container').classList.add('hidden');
-        playCorrectAudio(); 
+        feedbackAudio.src = "correct-sound.mp3"; // Definir o arquivo de áudio correto
+        showImage(correctAnswer); // Exibir a imagem do artista
+        // Ocultar o container de perguntas
+        questionContainer.classList.add('hidden');
     } else {
         feedback.innerText = "Incorrect Answer";
-        playIncorrectAudio(); 
+        feedbackAudio.src = "incorrect-sound.mp3"; // Definir o arquivo de áudio incorreto
     }
     feedback.classList.remove('hidden'); // Mostrar o feedback após a seleção
 
@@ -165,19 +174,20 @@ function checkAnswer(event, correctAnswer, optionButtons, feedback) {
     optionButtons.forEach(button => {
         button.disabled = true;
     });
-}
-function playCorrectAudio() {
-    let correctAudio = document.getElementById('correct-audio');
-    if (correctAudio) {
-        correctAudio.play();
-    }
-}
 
-function playIncorrectAudio() {
-    let incorrectAudio = document.getElementById('incorrect-audio');
-    if (incorrectAudio) {
-        incorrectAudio.play();
-    }
+    // Reproduzir o áudio de feedback
+    feedbackAudio.play();
+
+    // Ocultar a barra de progresso e resetar para 0%
+    let progress = document.getElementById('progress-bar-fill');
+    progress.style.display = 'none';
+    progress.style.width = '0%';
+
+    // Ocultar o contador de tempo
+    progressDiv.style.display = 'none';
+
+    // Ocultar a mensagem de tempo esgotado
+    messageFinishTime.classList.add('hidden');
 }
 
 function showImage(correctAnswer) {
@@ -188,14 +198,10 @@ function showImage(correctAnswer) {
         if (quizItem.correctAnswer === correctAnswer && quizItem.image) {
             artistImage.src = quizItem.image;
             imageContainer.classList.remove('hidden');
-            // Oculta a div com o ID "time"
-            progressDiv.style.display = 'none';
-           
-    }
         }
-        
-
+    }
 }
+
 let score = 0; // Declara a variável score aqui
 
 function incrementScore() {
@@ -209,16 +215,13 @@ function updateScoreDisplay() {
 
 let intervalId; // Variável para armazenar o intervalo do countdown
 
-function startCountdown(durationSeconds, progress, messageFinishTime) {
+function startCountdown(durationSeconds, progress, progressDiv, messageFinishTime) {
     let totalTime = durationSeconds * 1000;
     let intervalMs = 500;
     let currentTime = 0;
     let audioPlayed = false; // Variável para controlar se o áudio já foi reproduzido
 
     progress.style.width = '0%';
-
-    // Limpar o intervalo anterior, se houver
-    clearInterval(intervalId);
 
     let optionButtons = document.querySelectorAll('.option');
     let clockAudio = document.getElementById('clock-audio');
@@ -234,7 +237,6 @@ function startCountdown(durationSeconds, progress, messageFinishTime) {
         } else {
             clearInterval(intervalId);
             progress.style.display = 'none';
-            // Ocultar a div com o ID "time"
             progressDiv.style.display = 'none';
             messageFinishTime.classList.remove('hidden');
             messageFinishTime.classList.add('shaking');
