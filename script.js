@@ -1,12 +1,11 @@
-let progressDiv; // Declarar a variável global progressDiv
-
+let currentQuestionIndex = 0;
 document.addEventListener("DOMContentLoaded", function() {
     let startQuizButton = document.getElementById('start-quiz');
     let instructionContainer = document.getElementById('instruction-container');
     let questionContainer = document.getElementById('question-container');
     let feedbackContainer = document.getElementById('feedback-container');
     let scoreContainer = document.getElementById('score-container');
-    let currentQuestionIndex = 0;
+    
     let optionSelected = false; // Variável para controlar se uma opção foi selecionada
 
     startQuizButton.addEventListener('click', function() {
@@ -37,13 +36,15 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
 const musicQuiz = [
     {
-        question: "Who is often referred to as the 'King of Pop'?",
-        options: ["Elvis Presley", "Michael Jackson", "Prince", "Madonna"],
+        question: "Which artist released the album 'Thriller' in 1982?",
+        options: ["Madonna", "Elton John", "Michael Jackson", "David Bowie"],
         correctAnswer: "Michael Jackson",
         image:"./assets/images/michael.jpg"
     },
+    
     {
         question: "Which band performed the hit song 'Bohemian Rhapsody'?",
         options: ["The Beatles", "Queen", "Led Zeppelin", "The Rolling Stones"],
@@ -51,54 +52,72 @@ const musicQuiz = [
         image:"./assets/images/queen.jpg"
     },
     {
-        question: "Which artist released the album 'Thriller' in 1982?",
-        options: ["Madonna", "Elton John", "Michael Jackson", "David Bowie"],
-        correctAnswer: "Michael Jackson",
-        image:
-    },
-    {
         question: "What is the name of Beyoncé's fanbase?",
         options: ["BeyHive", "Queen Bees", "BeyArmy", "BeyFanatics"],
-        correctAnswer: "BeyHive"
+        correctAnswer: "BeyHive",
+        image: "./assets/images/beyonce.webp"
     },
+    
+    
     {
         question: "Who is the lead vocalist of the band Coldplay?",
         options: ["Chris Martin", "Thom Yorke", "Eddie Vedder", "Brandon Flowers"],
-        correctAnswer: "Chris Martin"
+        correctAnswer: "Chris Martin",
+        image:  "./assets/images/chris-martin.webp"
     },
-    {question: "Who is the lead vocalist and founder of the Foo Fighters?",
+    {
+        question: "Who is the lead vocalist and founder of the Foo Fighters?",
         options: ["Dave Grohl", "Kurt Cobain", "Chris Cornell", "Eddie Vedder"],
-        correctAnswer: "Dave Grohl"
+        correctAnswer: "Dave Grohl",
+        image:"./assets/images/foo-fighters-dave-grohl.webp"
+    },
+    {
+        question: "Which rock band is famous for their album 'Back in Black'?",
+        options: ["AC/DC", "Guns N' Roses", "Metallica", "Nirvana"],
+        correctAnswer: "AC/DC",
+        image: "./assets/images/acdc.webp"
     },
     {
         question: "Who is known as the 'Queen of Pop'?",
         options: ["Madonna", "Beyoncé", "Taylor Swift", "Adele"],
-        correctAnswer: "Madonna"
+        correctAnswer: "Madonna",
+        image: "./assets/images/madonna.jpg"
     },
     {
         question: "Which iconic guitarist was known for playing with his teeth and behind his head?",
         options: ["Jimi Hendrix", "Eric Clapton", "Jimmy Page", "Stevie Ray Vaughan"],
-        correctAnswer: "Jimi Hendrix"
+        correctAnswer: "Jimi Hendrix",
+        image: "./assets/images/jimi-hendrix.webp"
     },
     {
         question: "Which British band released the album 'The Dark Side of the Moon'?",
         options: ["Pink Floyd", "The Beatles", "Led Zeppelin", "Queen"],
-        correctAnswer: "Pink Floyd"
+        correctAnswer: "Pink Floyd",
+        image: "./assets/images/pinkfloyd.webp"
     },
     {
         question: "Who is the lead singer of the band U2?",
         options: ["Bono", "Chris Martin", "Thom Yorke", "Eddie Vedder"],
-        correctAnswer: "Bono"
+        correctAnswer: "Bono",
+        image:"./assets/images/bono.webp"
+    },
+    {
+        question: "Which Irish singer-songwriter gained international fame with her hit song 'Nothing Compares 2 U'?",
+        options: ["Enya", "Dolores O'Riordan", "Sinead O'Connor", "Imelda May"],
+        correctAnswer: "Sinead O'Connor",
+        image: "./assets/images/sinead.webp"
     },
     {
         question: "Which artist released the hit single 'Shape of You'?",
         options: ["Ed Sheeran", "Sam Smith", "Justin Bieber", "Shawn Mendes"],
-        correctAnswer: "Ed Sheeran"
+        correctAnswer: "Ed Sheeran",
+        image: "./assets/images/edsheeran.webp"
     }
-]
+];
+
 function showQuestion(quizItem) {
     let progress = document.getElementById('progress-bar-fill');
-    progressDiv = document.getElementById('time'); //
+    let progressDiv = document.getElementById('time'); //
     let messageFinishTime = document.getElementById('time-finish');
 
     // Ocultar a imagem
@@ -121,7 +140,7 @@ function showQuestion(quizItem) {
     showOptions(quizItem.options, quizItem.correctAnswer);
 
     // Iniciar a contagem regressiva
-    startCountdown(6, progress, messageFinishTime);
+    startCountdown(6, progress, progressDiv, messageFinishTime);
 }
 
 function showOptions(options, correctAnswer) {
@@ -161,7 +180,10 @@ function checkAnswer(event, correctAnswer, optionButtons, feedback) {
         updateScoreDisplay();
         feedback.innerText = "Correct Answer";
         feedbackAudio.src = "correct-sound.mp3"; // Definir o arquivo de áudio correto
-        showImage(correctAnswer); // Exibir a imagem do artista
+        // Encontrar o objeto quizItem correspondente à pergunta atual
+        let currentQuestion = musicQuiz[currentQuestionIndex];
+        // Chamada corrigida para a função showImage()
+        showImage(currentQuestion); // Passar o objeto quizItem correspondente à pergunta atual
         // Ocultar o container de perguntas
         questionContainer.classList.add('hidden');
     } else {
@@ -190,17 +212,18 @@ function checkAnswer(event, correctAnswer, optionButtons, feedback) {
     messageFinishTime.classList.add('hidden');
 }
 
-function showImage(correctAnswer) {
+
+function showImage(quizItem) {
     let imageContainer = document.getElementById('image-container');
     let artistImage = document.getElementById('artist-image');
-    for (let i = 0; i < musicQuiz.length; i++) {
-        let quizItem = musicQuiz[i];
-        if (quizItem.correctAnswer === correctAnswer && quizItem.image) {
-            artistImage.src = quizItem.image;
-            imageContainer.classList.remove('hidden');
-        }
+    if (quizItem.image) {
+        artistImage.src = quizItem.image;
+        imageContainer.classList.remove('hidden');
+    } else {
+        imageContainer.classList.add('hidden'); // Ocultar container se não houver imagem
     }
 }
+
 
 let score = 0; // Declara a variável score aqui
 
