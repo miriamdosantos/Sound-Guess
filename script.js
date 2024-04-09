@@ -6,12 +6,13 @@ document.addEventListener("DOMContentLoaded", function() {
     let feedbackContainer = document.getElementById('feedback-container');
     let scoreContainer = document.getElementById('score-container');
     let restartQuizButton = document.getElementById('restart-quiz'); // Adicione o botão de reinício
-
+    let userName = document.getElementById('username');
+    let formUserRegister = document.getElementById('user-register');
+    let labelContainer = document.getElementById('label-container'); // Adicionar a referência ao elemento
     let optionSelected = false; // Variável para controlar se uma opção foi selecionada
 
-    startQuizButton.addEventListener('click', function() {
-        startQuiz();
-    });
+    let userLabel = document.getElementById('user-label'); // Corrigir o ID aqui
+
 
     let nextButton = document.getElementById('next-btn');
     nextButton.disabled = true; // Desabilitar o botão "Next" inicialmente
@@ -29,6 +30,15 @@ document.addEventListener("DOMContentLoaded", function() {
             alert('Quiz completed!');
         }
     });
+    formUserRegister.addEventListener('submit', function(event){
+        event.preventDefault(); // Impedir o envio padrão do formulário
+        if(validateUser()){ // Verificar se o nome do usuário é válido
+            userLabel.innerText += `${userName.value}` // Adicionar o nome do usuário ao elemento
+            
+            startQuiz(); // Iniciar o quiz
+        }
+    });
+
 
     // Adicione o evento de clique para o botão de reinício
     restartQuizButton.addEventListener('click', function() {
@@ -42,6 +52,8 @@ document.addEventListener("DOMContentLoaded", function() {
         feedbackContainer.classList.remove('hidden');
         scoreContainer.classList.remove('hidden');
         instructionContainer.classList.add('hidden');
+        userName.classList.add('hidden');
+        labelContainer.classList.remove('hidden'); // Remover a classe hidden da div
         showQuestion(musicQuiz[currentQuestionIndex]);
         updateScoreDisplay(0);
     }
@@ -55,6 +67,18 @@ document.addEventListener("DOMContentLoaded", function() {
         updateScoreDisplay(); // Reiniciar a exibição da pontuação
         showQuestion(musicQuiz[currentQuestionIndex]); // Exibir a primeira pergunta novamente
     }
+
+    //landing page user validation
+function validateUser() {
+    let reg = /^[A-Za-z]+$/;
+    if (userName.value == "" || !userName.value.match(reg)) {
+        alert("Please type in letters, no empty space or numbers!!!")
+        userName.focus();
+        return false;
+    } else {
+        return true;
+    }
+}
 });
 
 const musicQuiz = [
