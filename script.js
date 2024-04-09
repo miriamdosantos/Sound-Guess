@@ -5,18 +5,12 @@ document.addEventListener("DOMContentLoaded", function() {
     let questionContainer = document.getElementById('question-container');
     let feedbackContainer = document.getElementById('feedback-container');
     let scoreContainer = document.getElementById('score-container');
-    
+    let restartQuizButton = document.getElementById('restart-quiz'); // Adicione o botão de reinício
+
     let optionSelected = false; // Variável para controlar se uma opção foi selecionada
 
     startQuizButton.addEventListener('click', function() {
-        console.log('Start quiz button clicked');
-        startQuizButton.classList.add('hidden');
-        questionContainer.classList.remove('hidden');
-        feedbackContainer.classList.remove('hidden');
-        scoreContainer.classList.remove('hidden');
-        instructionContainer.classList.add('hidden');
-        showQuestion(musicQuiz[currentQuestionIndex]);
-        updateScoreDisplay(0);
+        startQuiz();
     });
 
     let nextButton = document.getElementById('next-btn');
@@ -35,6 +29,32 @@ document.addEventListener("DOMContentLoaded", function() {
             alert('Quiz completed!');
         }
     });
+
+    // Adicione o evento de clique para o botão de reinício
+    restartQuizButton.addEventListener('click', function() {
+        restartQuiz();
+    });
+
+    function startQuiz() {
+        console.log('Start quiz button clicked');
+        startQuizButton.classList.add('hidden');
+        questionContainer.classList.remove('hidden');
+        feedbackContainer.classList.remove('hidden');
+        scoreContainer.classList.remove('hidden');
+        instructionContainer.classList.add('hidden');
+        showQuestion(musicQuiz[currentQuestionIndex]);
+        updateScoreDisplay(0);
+    }
+
+    // Função para reiniciar o quiz
+    function restartQuiz() {
+        console.log('Restart quiz button clicked');
+        currentQuestionIndex = 0; // Reiniciar o índice da pergunta atual
+        score = 0;
+        clearInterval(intervalId);
+        updateScoreDisplay(); // Reiniciar a exibição da pontuação
+        showQuestion(musicQuiz[currentQuestionIndex]); // Exibir a primeira pergunta novamente
+    }
 });
 
 const musicQuiz = [
