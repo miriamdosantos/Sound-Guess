@@ -291,6 +291,46 @@ box-shadow: 2px 2px 2px #343036;
     display: none;
 }
 
+.quiz-result {
+    text-align: center;
+    font-family: "Inter", sans-serif; /* Use a fonte Inter */
+    color: #fdfcf9; 
+}
+
+.quiz-result h1 {
+    font-size: 2em; /* Tamanho da fonte para o título */
+    margin-bottom: 20px;
+    
+   /* Cor do texto */
+} /* Margem inferior */
+
+
+.quiz-result p {
+    font-size: 1.5em; /* Tamanho da fonte para os parágrafos */
+    line-height: 1.5;
+     /* Cor do texto */
+} /* Espaçamento entre linhas */
+.quiz-result span{
+    font-size: 1.5em;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.restart-quiz button{
+    padding: 10px 20px;
+    margin-top: 1.2rem;
+    background-color: #0c0110;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-family: "Libre Baskerville", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+
 @keyframes flash{
     0% {opacity: 1;}
     50% {opacity: 0.6;}
@@ -305,7 +345,7 @@ box-shadow: 2px 2px 2px #343036;
     }
 }
 .flashing{
-    animation: flash 2s 1s linear infinite;
+    animation: flash 1s 1s linear infinite;
 }
 .spinning {
     animation: spin 3s linear ; /* Nome da animação, duração, modo de timing e repetição infinita */
