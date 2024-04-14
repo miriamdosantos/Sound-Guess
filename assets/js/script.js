@@ -1,31 +1,40 @@
 import { musicQuiz } from "./musicQuiz.js";
+//variables
 let currentQuestionIndex = 0;
-let optionSelected = false; // Variável para controlar se uma opção foi selecionada
+let optionSelected = false; // 
 let totalQuestions = musicQuiz.length;
+//Add event listener to execute the following code when the DOM content is fully loaded
 document.addEventListener("DOMContentLoaded", function() {
+    //get the elements in the DOM that will be referred later on in the code
     let startQuizButton = document.getElementById('start-quiz');
     let instructionContainer = document.getElementById('instruction-container');
     let questionContainer = document.getElementById('question-container');
     let feedbackContainer = document.getElementById('feedback-container');
     let scoreContainer = document.getElementById('score-container');
     let restartQuizButton = document.getElementById('restart-quiz'); // Adicione o botão de reinício
-    let userName = document.getElementById('username');
+    let userName = document.getElementById('username').focus();
     let formUserRegister = document.getElementById('user-register');
     let labelContainer = document.getElementById('label-container'); // Adicionar a referência ao elemento
     let wrapper = document.getElementById('content');
     let userLabel = document.getElementById('user-label'); // Corrigir o ID aqui
     let nextButton = document.getElementById('next-btn');
-    nextButton.disabled = true; // Desabilitar o botão "Next" inicialmente
+
+    nextButton.disabled = true; // Disable the next button initially
+     // Add event listener to the next button
     nextButton.addEventListener('click', function() {
         console.log('Next button clicked');
         currentQuestionIndex++;
         if (currentQuestionIndex < musicQuiz.length) {
             let feedbackAudio = document.getElementById('feedback-audio');
-            feedbackAudio.pause(); // Pausar o áudio de feedback atual
-            feedbackAudio.currentTime = 0; // Reiniciar o áudio de feedback
+            // Pause the current feedback audio
+            feedbackAudio.pause(); 
+            // Reset the playback time of the feedback audio to the beginning
+            feedbackAudio.currentTime = 0; 
+               // Display the next question
             showQuestion(musicQuiz[currentQuestionIndex]);
-            nextButton.disabled = true; // Desabilitar o botão "Next" após avançar
+            nextButton.disabled = true;   // Disable the next button after advancing to the next question
         } else {
+            // Define feedback messages based on the user's score
             let scoreFeedback = "Oh no! It seems like you struggled a bit. Don't worry, there's always room for improvement!";
             if (score > 4) {
                 scoreFeedback = "Not bad at all! You're on the right track. Keep it up!";
@@ -36,15 +45,18 @@ document.addEventListener("DOMContentLoaded", function() {
             if (score > 9) {
                 scoreFeedback = "Incredible performance! Are you secretly a radio DJ? Keep shining!";
             }
-            wrapper.innerHTML = `
+             // Update the wrapper HTML to display quiz results and feedback
+            wrapper.innerHTML =
+                 `
                 <div class="quiz-result">
-                    <h1>Well done, ${userName.value}, you got to the end of the quiz!</h1>
+                    <h1>Well done, <span>${userName.value}</span>, you got to the end of the quiz!</h1>
                     <p>Your final score: <span class ="flashing"><u>${score}/${totalQuestions}</u></span></p>
                     <p>${scoreFeedback}</p>
                 </div>
-                <div class="restart-quiz">
-                    <button onclick="window.location.reload()">Play Again</button>
+                <div class="restart-quiz ">
+                    <button class="button" onclick="window.location.reload()">Play Again</button>
                 </div>
+               
             `;
         }
     });
@@ -56,10 +68,11 @@ document.addEventListener("DOMContentLoaded", function() {
             startQuiz(); // Iniciar o quiz
         }
     });
-    // Adicione o evento de clique para o botão de reinício
-    restartQuizButton.addEventListener('click', function() {
-        restartQuiz();
-    });
+   
+/**
+ * Start the quiz
+ * Hide the start button and display quiz elements
+*/
     function startQuiz() {
         console.log('Start quiz button clicked');
         startQuizButton.classList.add('hidden');
@@ -72,10 +85,11 @@ document.addEventListener("DOMContentLoaded", function() {
         showQuestion(musicQuiz[currentQuestionIndex]);
         updateScoreDisplay(0);
     }
-    /**
-     * landing page user validation
-     * @returns true of false on validation of user
-     */
+/**
+ * landing page user validation
+ * @returns true of false on validation of user
+*/
+    //  code inspiration : https://github.com/tmarkec/Get-it-right/blob/main/assets/js/script.js
     function validateUser() {
         let reg = /^[A-Za-z]+$/;
         if (userName.value == "" || !userName.value.match(reg)) {
@@ -87,44 +101,61 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+
+/**
+ * Display the question and options
+ * @param {Object} quizItem - The current quiz item containing question and options
+ */
 function showQuestion(quizItem) {
+    // Get the progress bar and progress div elements
     let progress = document.getElementById('progress-bar-fill');
-    let progressDiv = document.getElementById('time'); //
+    let progressDiv = document.getElementById('time'); 
+    // Get the message element for displaying finish time
     let messageFinishTime = document.getElementById('time-finish');
-    // Ocultar a imagem
+    // Hide the image container
     document.getElementById('image-container').classList.add('hidden');
+    // Display the progress div
     progressDiv.style.display = 'block';
     
-    // Exibir o question container
+    // Show the question container
     let questionContainer = document.getElementById('question-container');
     questionContainer.classList.remove('hidden');
-    // Exibir a barra de progresso e resetar para 0%
+    // Show the progress bar and reset it to 0%
     progress.style.display = 'block';
     progress.style.width = '0%';
-    // Ocultar a mensagem de tempo esgotado
+     // Hide the finish time message
     messageFinishTime.classList.add('hidden');
-    // Exibir a pergunta e as opções
+    // Display the question and options
     document.getElementById('question').textContent = quizItem.question;
     showOptions(quizItem.options, quizItem.correctAnswer);
-    // Iniciar a contagem regressiva
-    startCountdown(6, progress, progressDiv, messageFinishTime);
+    // Start the countdown
+    startCountdown(6.5 , progress, progressDiv, messageFinishTime);
 }
+/**
+ * Display the options for the current question
+ * @param {Array} options - The options for the question
+ * @param {string} correctAnswer - The correct answer for the question
+ */
 function showOptions(options, correctAnswer) {
+    // Get option buttons and feedback element
     let optionButtons = document.querySelectorAll('.option');
     let feedback = document.getElementById('feedback');
-    let nextButton = document.getElementById('next-btn');
-    optionSelected = false; // Reiniciar a variável de controle de seleção de opção
+    let nextButton = document.getElementById('next-btn')// Enable all options;
+    optionSelected = false;  // Reset option selection control variable
+
+    // Loop through options to display them
     for (let i = 0; i < options.length; i++) {
         optionButtons[i].textContent = options[i];
         optionButtons[i].disabled = false; // Habilitar todas as opções
+        // Add click event listener to each option button
         optionButtons[i].addEventListener('click', function(event) {
             clearInterval(intervalId);
             checkAnswer(event, correctAnswer, optionButtons, feedback);
-            optionSelected = true; // Atualizar a variável para indicar que uma opção foi selecionada
-            nextButton.disabled = false; // Habilitar o botão "Next" após selecionar uma opção
+            optionSelected = true; // Update variable to indicate an option has been selected
+            nextButton.disabled = false;// Enable the "Next" button after selecting an option
         });
     }
-    // Pausar qualquer áudio em andamento antes de reproduzir um novo áudio
+    //Pause audio that already in progress to no interfer in the others before it start 
     let audios = document.querySelectorAll('audio');
     audios.forEach(audio => {
         if (!audio.paused) {
@@ -132,95 +163,121 @@ function showOptions(options, correctAnswer) {
             audio.currentTime = 0;
         }
     });
-    // Ocultar o feedback após mostrar as opções
+    // Hide feedback display the options
     feedback.classList.add('hidden');
 }
 
+/**
+ * Check the selected answer against the correct answer
+ * @param {Event} event - The click event object
+ * @param {string} correctAnswer - The correct answer for the question
+ * @param {NodeList} optionButtons - The list of option buttons
+ * @param {HTMLElement} feedback - The feedback element
+ */
 function checkAnswer(event, correctAnswer, optionButtons, feedback) {
     console.log("checkAnswer called");
+     // Get the selected option text
     let selectedOption = event.target.textContent;
+    // Get DOM elements
     let feedbackAudio = document.getElementById('feedback-audio');
     let artistImage = document.getElementById('artist-image');
     let questionContainer = document.getElementById('question-container');
     let progressDiv = document.getElementById('time');
     let messageFinishTime = document.getElementById('time-finish');
+    // Check if the selected option is correct
     if (selectedOption === correctAnswer) {
-        incrementScore();
+        incrementScore(); //Increment the score
         console.log("Score incremented");
-        updateScoreDisplay();
-        feedback.innerText = "Correct Answer";
-        feedbackAudio.src = "correct-sound.mp3"; // Definir o arquivo de áudio correto
-        // Encontrar o objeto quizItem correspondente à pergunta atual
+        updateScoreDisplay();// Update the score display
+        feedback.innerText = "Correct Answer"; // Display correct feedback message
+        feedbackAudio.src = "./assets/audio/correct-sound.mp3"; 
+        // Find the corresponding quizItem object for the current question
         let currentQuestion = musicQuiz[currentQuestionIndex];
-        // Chamada corrigida para a função showImage()
-        showImage(currentQuestion); // Passar o objeto quizItem correspondente à pergunta atual
-        // Ocultar o container de perguntas
+        // Call the showImage() function with the current quizItem object
+        showImage(currentQuestion); 
         questionContainer.classList.add('hidden');
     } else {
-        feedback.innerText = "Incorrect Answer";
-        feedbackAudio.src = "incorrect-sound.mp3"; // Definir o arquivo de áudio incorreto
+        feedback.innerText = "Incorrect Answer"; // Display incorrect feedback message
+        feedbackAudio.src = "./assets/audio/incorrect-sound.mp3"; 
     }
-    feedback.classList.remove('hidden'); // Mostrar o feedback após a seleção
-    // Desativar todos os botões após a seleção
+    feedback.classList.remove('hidden'); 
+    // Disable all buttons after selection
     optionButtons.forEach(button => {
         button.disabled = true;
     });
-    // Reproduzir o áudio de feedback
-    feedbackAudio.volume = 0.5;// for a better userExperience
+    // Play  feedback audio 
+    feedbackAudio.volume = 0.5;// Adjust audio volume for better user experience
     feedbackAudio.play();
-    // Ocultar a barra de progresso e resetar para 0%
+   // Hide progress bar and reset to 0%
     let progress = document.getElementById('progress-bar-fill');
     progress.style.display = 'none';
     progress.style.width = '0%';
-    // Ocultar o contador de tempo
+      // Hide time counter
     progressDiv.style.display = 'none';
-    // Ocultar a mensagem de tempo esgotado
+     // Hide time finish message
     messageFinishTime.classList.add('hidden');
 }
+/**
+ * Show the image associated with the quizItem
+ * @param {Object} quizItem - The quiz item object containing image information
+ */
 function showImage(quizItem) {
     let imageContainer = document.getElementById('image-container');
-    let artistImage = document.getElementById('artist-image');
+    let artistImage = document.getElementById('artist-image');// Set the image source
     if (quizItem.image) {
         artistImage.src = quizItem.image;
-        imageContainer.classList.remove('hidden');
+        imageContainer.classList.remove('hidden');// Show the image container
     } else {
-        imageContainer.classList.add('hidden'); // Ocultar container se não houver imagem
+        imageContainer.classList.add('hidden');  // Hide container if no image is available
+    
     }
 }
-let score = 0; // Declara a variável score aqui
+let score = 0; // Declare the score variable
 function incrementScore() {
     score++;
 }
+/**
+ * Update the score display with the current score and total number of questions
+ */
 function updateScoreDisplay() {
     
     document.getElementById("score").innerText = `${score}/${totalQuestions}`;
 }
-let intervalId; // Variável para armazenar o intervalo do countdown
+/**
+ * Start a countdown timer with the specified duration in seconds
+ * @param {number} durationSeconds - The duration of the countdown timer in seconds
+ * @param {HTMLElement} progress - The progress bar element to update during the countdown
+ * @param {HTMLElement} progressDiv - The container for the progress bar
+ * @param {HTMLElement} messageFinishTime - The message element to display when the countdown finishes
+ */
+let intervalId; // declare the variable intervalId to store  countdown interval
 function startCountdown(durationSeconds, progress, progressDiv, messageFinishTime) {
     let totalTime = durationSeconds * 1000;
     let intervalMs = 500;
     let currentTime = 0;
-    let audioPlayed = false; // Variável para controlar se o áudio já foi reproduzido
+    let audioPlayed = false; // Variable to control if the audio has been played
     progress.style.width = '0%';
     let optionButtons = document.querySelectorAll('.option');
     let clockAudio = document.getElementById('clock-audio');
-    // Ajustar a duração do áudio com base na duração total da contagem
-    let audioDuration = totalTime < 11000 ? totalTime : 11000; // Limite de 11 segundos para o áudio
+    // Adjust the audio duration based on the total countdown duration
+    let audioDuration = totalTime < 11000 ? totalTime : 11000; // Limit of 11 seconds for the audio
+     // Start the countdown timer using setInterval
     intervalId = setInterval(function() {
-        currentTime += intervalMs;
+        currentTime += intervalMs;// Increment current time by the interval
         if (currentTime <= totalTime) {
+            // Calculate the width percentage of the progress bar
             let widthPercentage = (currentTime / totalTime) * 100;
             progress.style.width = widthPercentage + '%';
         } else {
-            clearInterval(intervalId);
+            clearInterval(intervalId);// Stop the interval timer
             progress.style.display = 'none';
             progressDiv.style.display = 'none';
             messageFinishTime.classList.remove('hidden');
             messageFinishTime.classList.add('shaking');
             if (!audioPlayed && clockAudio) {
-                clockAudio.currentTime = 0; // Reiniciar a reprodução do áudio
+                clockAudio.currentTime = 0; // Restart audio playback
                 clockAudio.play();
-                audioPlayed = true; // Marcar que o áudio foi reproduzido
+                audioPlayed = true;// Mark that the audio has been played
             }
             setTimeout(function() {
                 messageFinishTime.classList.add('hidden');
@@ -229,10 +286,11 @@ function startCountdown(durationSeconds, progress, progressDiv, messageFinishTim
                 }
                 let nextButton = document.getElementById('next-btn');
                 nextButton.disabled = false;
-            }, 2000); // Tempo reduzido para 2 segundos para a imagem "times up"
+            }, 2000); // Reduced time to 2 seconds for the "times up" image
+              // Disable all option buttons
             optionButtons.forEach(button => {
                 button.disabled = true;
             });
         }
-    }, intervalMs);
+    }, intervalMs);// Set the interval for updating the progress bar
 }

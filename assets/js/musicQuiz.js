@@ -1,3 +1,4 @@
+// musicQuiz array use to display the questions
 export const musicQuiz = [
     {
         question: "Which artist released the album 'Thriller' in 1982?",
@@ -8,13 +9,13 @@ export const musicQuiz = [
     
     {
         question: "Which band performed the hit song 'Bohemian Rhapsody'?",
-        options: ["The Beatles", "Queen", "Led Zeppelin", "The Rolling Stones"],
+        options: ["The Beatles", "The Rolling Stones", "Led Zeppelin", "Queen"],
         correctAnswer: "Queen",
         image:"./assets/images/queen.jpg"
     },
     {
         question: "What is the name of Beyoncé's fanbase?",
-        options: ["BeyHive", "Queen Bees", "BeyArmy", "BeyFanatics"],
+        options: ["Queen Bees", "BeyHive", "BeyArmy", "BeyFanatics"],
         correctAnswer: "BeyHive",
         image: "./assets/images/beyonce.webp"
     },
@@ -22,25 +23,25 @@ export const musicQuiz = [
     
     {
         question: "Who is the lead vocalist of the band Coldplay?",
-        options: ["Chris Martin", "Thom Yorke", "Eddie Vedder", "Brandon Flowers"],
+        options: ["Eddie Vedder", "Thom Yorke", "Chris Martin", "Brandon Flowers"],
         correctAnswer: "Chris Martin",
         image:  "./assets/images/chris-martin.webp"
     },
     {
         question: "Who is the lead vocalist and founder of the Foo Fighters?",
-        options: ["Dave Grohl", "Kurt Cobain", "Chris Cornell", "Eddie Vedder"],
+        options: ["Chris Cornell", "Kurt Cobain", "Dave Grohl", "Eddie Vedder"],
         correctAnswer: "Dave Grohl",
         image:"./assets/images/foo-fighters-dave-grohl.webp"
     },
     {
         question: "Which rock band is famous for their album 'Back in Black'?",
-        options: ["AC/DC", "Guns N' Roses", "Metallica", "Nirvana"],
+        options: ["Guns N' Roses", "AC/DC", "Metallica", "Nirvana"],
         correctAnswer: "AC/DC",
         image: "./assets/images/acdc.webp"
     },
     {
         question: "Who is known as the 'Queen of Pop'?",
-        options: ["Madonna", "Beyoncé", "Taylor Swift", "Adele"],
+        options: ["Adele", "Beyoncé", "Taylor Swift", "Madonna"],
         correctAnswer: "Madonna",
         image: "./assets/images/madonna.jpg"
     },
@@ -52,13 +53,13 @@ export const musicQuiz = [
     },
     {
         question: "Which British band released the album 'The Dark Side of the Moon'?",
-        options: ["Pink Floyd", "The Beatles", "Led Zeppelin", "Queen"],
+        options: ["Queen", "The Beatles", "Led Zeppelin", "Pink Floyd"],
         correctAnswer: "Pink Floyd",
         image: "./assets/images/pinkfloyd.webp"
     },
     {
         question: "Who is the lead singer of the band U2?",
-        options: ["Bono", "Chris Martin", "Thom Yorke", "Eddie Vedder"],
+        options: ["Thom Yorke", "Chris Martin", "Bono", "Eddie Vedder"],
         correctAnswer: "Bono",
         image:"./assets/images/bono.webp"
     },
@@ -70,7 +71,7 @@ export const musicQuiz = [
     },
     {
         question: "Which artist released the hit single 'Shape of You'?",
-        options: ["Ed Sheeran", "Sam Smith", "Justin Bieber", "Shawn Mendes"],
+        options: ["Shawn Mendes", "Sam Smith", "Justin Bieber", "Ed Sheeran"],
         correctAnswer: "Ed Sheeran",
         image: "./assets/images/edsheeran.webp"
     }

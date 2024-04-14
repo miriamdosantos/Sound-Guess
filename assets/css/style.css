@@ -1,0 +1,345 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+/* Variables */
+:root {
+    --primary-color:#fff;
+    --primary-font:"Libre Baskerville", serif;
+    --box-shadow-primary-color:rgba(210, 29, 158, 0.5);
+    --second-font:"Inter", sans-serif;
+}
+/* Reset */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* ----------------landing page-------------*/
+body {
+    background: url('../images/background-image.jpg')  top / cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: flex-start; 
+}
+
+header {
+    color: var(--primary-color);
+    padding: 2px;
+    text-align: center;
+  
+}
+/* logo*/
+header img {
+    max-width: 70%;
+    height: 12rem;
+    border-top-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+    border-top-left-radius: 25%;
+    border-bottom-right-radius: 25%;
+    box-shadow: 5px 5px 2px var(--box-shadow-primary-color);
+}
+/* ----------------container/ welcome message/-------------*/
+#content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;   
+    padding:  20px;
+    height: 100vh;
+
+}
+
+#instruction-container {
+    margin-top: 0.5rem;
+    color: var(--primary-color);
+    font-family: var(--primary-font);
+    font-size: 1.2rem;
+    font-style: normal;
+    background-color: rgba(126, 81, 87, .5);
+    border-radius: 20px;
+    border: 2px solid;
+    box-shadow: 5px 5px 2px var(--box-shadow-primary-color);
+    text-align: center;
+    padding: 15px; 
+}
+
+#instruction-container p{
+    padding: 10px; 
+    text-align: center;
+}
+/* user input */
+.username-input input{
+    background-color: rgb(209, 211, 215);
+    text-align: center;
+    color: #0b0b0b;
+    border-radius: 10px;
+    min-height: 2.2rem;
+    margin: 0.5rem;
+    font-size: 1.3rem;
+    max-width: 12rem;
+    padding: 3px;
+   
+  
+    
+}
+#username::placeholder {
+    color: #69365f;
+    opacity: 0.5;
+    
+}
+#username:hover {
+    border-color: rgb(154, 166, 103);
+}
+ #label-container {
+    font-size: 1rem;
+    font-weight: bold; 
+    max-width: 9rem;
+    height: 3.5rem;
+    padding: 3px;
+    margin-top: 4px;
+    margin-left: 15rem;
+    background-color: #bbafc1;
+    border: 4px solid #0a0008;
+    border-radius: 20px;
+    font-size: 1rem;
+    box-shadow: 2px 2px 2px #343036;
+}
+
+
+
+   
+/*-------------- second page--game---------------*/
+#question-container {
+    background-color:#bbafc1 ;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 5px;
+    margin-bottom: 0;
+    width: 100%;
+    max-height: 70%;
+   
+    
+}
+
+#question {
+    font-size: 1.2em;
+    font-family: var(--primary-font);
+    font-weight: 700;
+    font-style: normal;
+      
+}
+
+#options {
+    list-style-type: none;
+    padding: 0;
+}
+.option{
+    font-family:var(--primary-font);
+    font-weight: 400;
+    font-style: italic;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color:var(--primary-color);
+    cursor: pointer;
+}
+.option:hover {
+    background-color: #b9a1d0;
+}
+
+#score-container {
+    text-align: center;
+    font-size: 1.2em;
+    color:  var(--primary-color);
+    font-family: var(--primary-font);
+    font-weight: 700;
+    font-style: normal;
+
+    
+      
+}
+
+/* Display player name */
+#label-container p {
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(41, 1, 25, 0.5);
+}
+
+
+#user-label  {
+    text-align: center;
+    display: block; 
+    text-transform: uppercase;
+    color:#080600;
+    text-shadow: 2px 2px 4px rgba(215, 11, 133, 0.5);
+}
+
+/*-- bar contdown style with the time left for answer the question, 
+and display times up image and sound---*/
+
+#time p{
+    text-align: center;
+    font-family: var(--primary-font);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem; 
+    font-style: italic;
+    color: #f6f5f5;
+    text-shadow: 3px 2px 2px #d1ace6;
+}
+  
+.progress-bar {
+    width: 300px;
+    height: 15px;
+    background-color: #f0f0f0;
+    border-radius: 5px; 
+    overflow: hidden;
+  }
+  .progress-bar-fill{
+    height: 100%;
+    background: linear-gradient(to right, #ffcccc, #ff0000);
+  }
+#time-finish{
+    position: relative; 
+    width: 100%;
+    height: 5rem;
+}
+ #time-finish img{
+    width: 20%;
+    left: 9rem;
+    border-radius: 15px;
+    position: absolute;
+ }
+
+ /*feedback div style  with correct or incorrct message  */
+ #feedback{
+    text-align: center;
+    font-size: 1.2em;
+    color:  var(--primary-color);
+    font-family: var(--primary-font);
+    font-weight: 700;
+    font-style: normal;
+}
+
+#feedback-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/*image  to correct answer */
+#image-container{
+    width: 100%;   
+}
+#artist-image{
+   width:100%;
+   height: 19rem;
+   border: 5px solid #c8b5d2;
+   box-shadow: 4px 2px 2px #343036;
+   
+}
+
+/*--------------button style apllied to the quiz ----------------*/
+
+#next-btn { /* button on the second page, style for the next button, 
+    to diplay the next question*/
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #b98dcf;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    box-shadow: 2px 5px 2px var(--box-shadow-primary-color);
+}
+/*Apply style disable to next button, for the user exeperience, 
+that can't not go to the next, just when the button is able again */
+#next-btn:disabled {
+    background-color: #7f7f7f; /* Cor de fundo cinza */
+    color: #ccc; /* Cor do texto cinza claro */
+    cursor: not-allowed; /* Cursor de não permitido */
+    box-shadow: none; /* Remover sombra quando desabilitado */
+}
+/*general button style for the quiz start and restart*/
+.button {
+    padding: 10px 20px;
+    margin-top: 1.2rem;
+    background-color: #0c0110;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-family: var(--primary-font);
+    font-weight: 700;
+    font-style: normal;
+   
+}
+.hidden{
+    display: none;
+}
+/*--------------Final page - Result of the Quiz ----------------*/
+.quiz-result {
+    text-align: center;
+    font-family: var(--second-font);
+    color: #fdfcf9; 
+}
+
+.quiz-result h1 {
+    font-size: 2em; 
+    margin-bottom: 20px; 
+} 
+
+.quiz-result p {
+    font-size: 1.5em;
+    line-height: 1.5;
+     
+} 
+.quiz-result span{
+    font-size: 1.5em;
+    color:rgba(255, 232, 249, 0.9);
+    font-weight: bold;
+}
+
+/*Keframes animations */
+@keyframes flash{
+    0% {opacity: 1;}
+    50% {opacity: 0.6;}
+    100%{opacity: 1;}
+}
+@keyframes shake {
+    from {
+        transform: rotate(0deg) translate(-2px, -2px); /* Initial position of the image */
+    }
+    to {
+        transform: rotate(0deg) translate(2px, 2px); /* Final position of the image */
+    }
+}
+@keyframes spin {
+    from {
+        transform: rotateY(0deg); /* Rotação inicial */
+    }
+    to {
+        transform: rotateY(360deg); /* Rotação completa */
+    }
+}
+/*Classes to apply the style of the keyframes, through the script.js*/
+.flashing{
+    animation: flash 1s 1s linear infinite;
+}
+.spinning {
+    animation: spin 3s linear ; 
+    transform-style: preserve-3d;
+ } 
+.shaking{
+    animation: shake 0.05s infinite alternate;
+}
+

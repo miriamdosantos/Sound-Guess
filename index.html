@@ -1,51 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SoundGuess</title>
-   
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  
-    <link rel="stylesheet" href="style.css">
-  
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+
 </head>
+
 <body>
     <header>
-        <img src="logo.webp" alt="logo page" class="spinning">
+        <img src="./assets/images/logo.webp" alt="logo page" class="spinning">
     </header>
-    <!-- Container para todo o conteúdo -->
+    <!-- Container with all the content -->
     <section id="content">
-        <!-- Mensagem antes de começar o quiz -->
-            
-            <div id="instruction-container">
-                <p>Hello!</p>
-                <p>Welcome to <strong>SoundGuess</strong>, your music quiz! </p>
-                <p>Answer the questions below to test your knowledge of music.</p>
-                <p>Click on "START QUIZ" to begin.</p>
+        <!-- Mensage display before start quiz -->
+
+        <div id="instruction-container">
+            <p>Hello!</p>
+            <p>Welcome to <strong>SoundGuess</strong>, your music quiz! </p>
+            <p>Answer the questions below to test your knowledge of music.</p>
+            <p>Click on "START QUIZ" to begin.</p>
+        </div>
+        <form autocomplete="off" method="get" id="user-register">
+            <div class="username-input">
+                <input type="text" name="username" id="username" required minlength="4" maxlength="6"
+                    placeholder="UserName">
             </div>
-            <form autocomplete="off" method="get" id="user-register">
-                <div class="username-input">
-                    <input type="text" name="username" id="username" required minlength="4" maxlength="6" placeholder="UserName">
-                    </div>
-            <div id="start-quiz" class="flashing">
-                <button>START QUIZ</button>
+            <!-- button to call the function to start the quiz and display the questions -->
+            <div id="start-quiz" class="flashing ">
+                <button class="button">START QUIZ</button>
             </div>
         </form>
+        <!-- a bar with time left to answer the question -->
         <div id="time" class="hidden">
             <p>TIME LEFT!!!</p>
             <div class="progress-bar">
                 <div id="progress-bar-fill" class="progress-bar-fill"></div>
             </div>
         </div>
+        <!-- display clock and audio in the end of the count of the bar -->
         <div id="time-finish" class="hidden">
-            <img src="times-up-red-sign-vector-24358187.webp" alt="Times up clock">
-            <audio id="clock-audio" class="hidden" src="retro-alarm-clock-ringing-soundroll-1-00-05.mp3" preload="auto"></audio>
+            <img src="./assets/images/times-up-red-sign-vector-24358187.webp" alt="Times up clock">
+            <audio id="clock-audio" class="hidden" src="./assets/audio/retro-alarm-clock-ringing-soundroll-1-00-05.mp3"
+                preload="auto"></audio>
         </div>
         <div id="label-container" class="hidden">
             <p> Player:</p>
             <span id="user-label"></span>
         </div>
+        <!-- display of the quiz  -->
         <div id="question-container" class="hidden">
             <p id="question">QUESTION</p>
             <ul id="options">
@@ -54,25 +62,30 @@
                 <li><button class="option">Opção 3</button></li>
                 <li><button class="option">Opção 4</button></li>
             </ul>
-           
+
         </div>
+        <!-- container to display artist/band  of the correct answer -->
         <div id="image-container" class="hidden">
             <img id="artist-image" src="" alt="Artist Image">
-           
+
         </div>
-        
+        <!-- container to display feedback correct or incorrect answer  
+            after user pick up o aoption-->
         <div id="feedback-container" class="hidden">
             <p id="feedback"></p>
-            <button id="next-btn" >Next</button>
+            <button id="next-btn">Next</button>
             <audio id="feedback-audio"></audio>
-            
+
         </div>
+        <!-- container to display the score as the quiz happen, 
+             with the total of the questions as well -->
         <div id="score-container" class="hidden">
             <p>SCORE: <span id="score">0</span><span id="total"></span></p>
         </div>
     </section>
-    
+
     <script type="module" src="./assets/js/script.js"></script>
-  
+
 </body>
+
 </html>
