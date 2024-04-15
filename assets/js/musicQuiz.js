@@ -64,7 +64,7 @@ export const musicQuiz = [
         image:"./assets/images/bono.webp"
     },
     {
-        question: "Which Irish singer-songwriter gained international fame with her hit song 'Nothing Compares 2 U'?",
+        question: 'Which Irish singer found global success with "Nothing Compares 2 U"?',
         options: ["Enya", "Dolores O'Riordan", "Sinead O'Connor", "Imelda May"],
         correctAnswer: "Sinead O'Connor",
         image: "./assets/images/sinead.webp"

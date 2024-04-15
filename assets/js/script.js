@@ -3,6 +3,7 @@ import { musicQuiz } from "./musicQuiz.js";
 let currentQuestionIndex = 0;
 let optionSelected = false; // 
 let totalQuestions = musicQuiz.length;
+let scoreContainer = document.getElementById('score-container');
 //Add event listener to execute the following code when the DOM content is fully loaded
 document.addEventListener("DOMContentLoaded", function() {
     //get the elements in the DOM that will be referred later on in the code
@@ -10,15 +11,14 @@ document.addEventListener("DOMContentLoaded", function() {
     let instructionContainer = document.getElementById('instruction-container');
     let questionContainer = document.getElementById('question-container');
     let feedbackContainer = document.getElementById('feedback-container');
-    let scoreContainer = document.getElementById('score-container');
     let restartQuizButton = document.getElementById('restart-quiz'); // Adicione o botão de reinício
-    let userName = document.getElementById('username').focus();
+    let userName = document.getElementById('username')
     let formUserRegister = document.getElementById('user-register');
     let labelContainer = document.getElementById('label-container'); // Adicionar a referência ao elemento
     let wrapper = document.getElementById('content');
     let userLabel = document.getElementById('user-label'); // Corrigir o ID aqui
     let nextButton = document.getElementById('next-btn');
-
+    userName.focus();
     nextButton.disabled = true; // Disable the next button initially
      // Add event listener to the next button
     nextButton.addEventListener('click', function() {
@@ -129,7 +129,7 @@ function showQuestion(quizItem) {
     document.getElementById('question').textContent = quizItem.question;
     showOptions(quizItem.options, quizItem.correctAnswer);
     // Start the countdown
-    startCountdown(6.5 , progress, progressDiv, messageFinishTime);
+    startCountdown(6.5 , progress, progressDiv, messageFinishTime,scoreContainer);
 }
 /**
  * Display the options for the current question
@@ -251,7 +251,7 @@ function updateScoreDisplay() {
  * @param {HTMLElement} messageFinishTime - The message element to display when the countdown finishes
  */
 let intervalId; // declare the variable intervalId to store  countdown interval
-function startCountdown(durationSeconds, progress, progressDiv, messageFinishTime) {
+function startCountdown(durationSeconds, progress, progressDiv, messageFinishTime,scoreContainer) {
     let totalTime = durationSeconds * 1000;
     let intervalMs = 500;
     let currentTime = 0;
@@ -274,6 +274,7 @@ function startCountdown(durationSeconds, progress, progressDiv, messageFinishTim
             progressDiv.style.display = 'none';
             messageFinishTime.classList.remove('hidden');
             messageFinishTime.classList.add('shaking');
+            scoreContainer.classList.add('hidden');
             if (!audioPlayed && clockAudio) {
                 clockAudio.currentTime = 0; // Restart audio playback
                 clockAudio.play();
@@ -284,6 +285,7 @@ function startCountdown(durationSeconds, progress, progressDiv, messageFinishTim
                 if (clockAudio) {
                     clockAudio.pause();
                 }
+                scoreContainer.classList.remove('hidden');
                 let nextButton = document.getElementById('next-btn');
                 nextButton.disabled = false;
             }, 2000); // Reduced time to 2 seconds for the "times up" image
