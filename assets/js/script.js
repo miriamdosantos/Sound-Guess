@@ -164,7 +164,8 @@ function showQuestion(quizItem) {
     // Get the message element for displaying finish time
     let messageFinishTime = document.getElementById('time-finish');
     // Hide the image container
-    document.getElementById('image-container').classList.add('hidden');
+    let imageContainer = document.getElementById('image-container');
+    imageContainer.classList.add('hidden');
     // Display the progress div
     progressDiv.style.display = 'block';
     
@@ -182,6 +183,7 @@ function showQuestion(quizItem) {
     // Start the countdown
     startCountdown(6.5, progress, progressDiv, messageFinishTime, scoreContainer, feedbackAudio); // Pass feedbackAudio to startCountdown
 }
+
 /**
  * Display the options for the current question
  * @param {Array} options - The options for the question
