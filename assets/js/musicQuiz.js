@@ -53,7 +53,7 @@ export const musicQuiz = [
     },
     {
         question: "Which British band released the album 'The Dark Side of the Moon'?",
-        options: ["Queen", "The Beatles", "Led Zeppelin", "Pink Floyd"],
+        options: ["Oasis", "The Beatles", "Led Zeppelin", "Pink Floyd"],
         correctAnswer: "Pink Floyd",
         image: "./assets/images/pinkfloyd.webp"
     },

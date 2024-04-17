@@ -14,12 +14,12 @@
 
 <body>
     <header>
-        <img src="./assets/images/logo.webp" alt="logo page" class="spinning">
+        <img src="./assets/images/logo.webp" alt="logo page" class="spinning" onclick="window.location.reload()">
     </header>
     <!-- Container with all the content -->
     <section id="content">
         <!-- Mensage display before start quiz -->
-
+        <h1 class="hidden">Welcome Page</h1>
         <div id="instruction-container">
             <p>Hello!</p>
             <p>Welcome to <strong>SoundGuess</strong>, your music quiz! </p>
@@ -66,7 +66,7 @@
         </div>
         <!-- container to display artist/band  of the correct answer -->
         <div id="image-container" class="hidden">
-            <img id="artist-image" src="" alt="Artist Image">
+            <img id="artist-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Artist Image">
 
         </div>
         <!-- container to display feedback correct or incorrect answer  
@@ -74,7 +74,7 @@
         <div id="feedback-container" class="hidden">
             <p id="feedback"></p>
             <button id="next-btn">Next</button>
-            <audio id="feedback-audio"></audio>
+            <audio id="feedback-audio" preload="auto"></audio>
 
         </div>
         <!-- container to display the score as the quiz happen, 
