@@ -1,25 +1,60 @@
-#SoundGuess
+# SoundGuess
+![Responsive screenshot ](./documentation/responsive.webp)
 ---------
 [View the Live Webiste Here](https://miriamdosantos.github.io/Sound-Guess/)  
+# Table of Contents
+
+- [SoundGuess](#soundguess)
+  - [Project Goals](#project-goals)
+  - [User Experience](#user-experience)
+  - [Design](#design)
+  - [Technologies Used](#technologies-used)
+  - [Features](#features)
+  - [Testing](#testing)
+  - [Bug Report](#bug-report)
+    - [Description](#description)
+    - [Steps to Reproduce](#steps-to-reproduce)
+    - [Expected Result](#expected-result)
+    - [Actual Result](#actual-result)
+    - [Fix](#fix)
+    - [Incorrect Timer Functionality](#incorrect-timer-functionality)
+    - [Description](#description-1)
+    - [Steps to Reproduce](#steps-to-reproduce-1)
+    - [Expected Result](#expected-result-1)
+    - [Actual Result](#actual-result-1)
+    - [Fix](#fix-1)
+    - [Description](#description-2)
+    - [Steps to Reproduce](#steps-to-reproduce-2)
+    - [Expected Result](#expected-result-2)
+    - [Actual Result](#actual-result-2)
+    - [Fix](#fix-2)
+  - [Deployment](#deployment)
+    - [Version Control](#version-control)
+    - [Deployment to Github pages](#deployment-to-github-pages)
+    - [Cloning Repository Code locally](#cloning-repository-code-locally)
+  - [Credits](#credits)
+    - [Content](#content)
+    - [Media](#media)
+
 
 ## Project Goals
 ---------
 The project aims to develop a music quiz game called "SoundGuess." Players answer music-related questions within a time limit, receiving feedback on their answers and accumulating points as they progress. The game ends with a final score and feedback based on the player's performance.
 * User Goals:
-  1. Engagement: Users seek an interactive and enjoyable experience while participating in the music quiz.
-  2. Challenge: Users want to be challenged with music-related questions to test their knowledge and skills.
-  3. Feedback: Users expect immediate feedback on their answers to understand whether they are correct or incorrect.
-  4. Scoring: Users aim to achieve a high score by answering questions correctly within the given time limit.
-  5. Learning: Users may want to enhance their knowledge of music by learning from the questions and feedback provided during the quiz.  
+  1. __Engagement__: Users seek an interactive and enjoyable experience while participating in the music quiz.
+  2. __Challenge__: Users want to be challenged with music-related questions to test their knowledge and skills.
+  3. __Feedback__: Users expect immediate feedback on their answers to understand whether they are correct or incorrect.
+  4. __Scoring__: Users aim to achieve a high score by answering questions correctly within the given time limit.
+  5. __Learning__: Users may want to enhance their knowledge of music by learning from the questions and feedback provided during the quiz.  
 * Site Owner Goals
   * __User Engagement__: Encouraging visitors to spend time on the website by providing an entertaining and interactive music quiz experience.
   * Creating user friendly game
   * The game should be fully responsive to be able to be played on different screen sizes.
   ## User Experience
 * Target Audience
-  * Music enthusiasts: People who have a passion for music and enjoy exploring different genres, artists, and trivia related to music.
-  * Casual gamers: Individuals looking for a fun and entertaining way to spend their leisure time while also challenging themselves with quiz questions.
-  * Students: Those studying music or related fields who want to test their knowledge and reinforce their learning in a interactive way.  
+  * __Music enthusiasts:__ People who have a passion for music and enjoy exploring different genres, artists, and trivia related to music.
+  * __Casual gamers__: Individuals looking for a fun and entertaining way to spend their leisure time while also challenging themselves with quiz questions.
+  * __Students:__ Those studying music or related fields who want to test their knowledge and reinforce their learning in a interactive way.  
   Overall, the target audience comprises a broad spectrum of individuals united by their love for music and their desire for an enjoyable and interactive online experience.
 * User Requirements and Expectations
   * __Engaging Content:__ Varied and challenging quiz questions covering music genres, artists, and history.
@@ -43,6 +78,10 @@ The project aims to develop a music quiz game called "SoundGuess." Players answe
   * Main colours that I picked for this project were : #fff, rgba(210, 29, 158, 0.5),
 * Fonts
    For the fonts, I've used "Libre Baskerville", serif; font which gives whole page a nice and clean atmohosfere
+* Wiframes
+  * The site was developed with the Mobile layout  method first. The wireframes were therefore drawn with that thought in mind and adapted along of the project, and created with [Balsamiq](https://balsamiq.cloud/), on the sequence of the Welcome Page, Quiz Game and Final Quiz.
+  ![Wiframe Screenshot](./wiframes/mobile-wiframe.png)
+
 ## Technologies Used
 * Languages
   * HTML
@@ -54,20 +93,20 @@ The project aims to develop a music quiz game called "SoundGuess." Players answe
   * Visual Studio
   * Font Awesome
   * Canva
-  * Favicon.io
+  * Balsamiq
   * JSHint
   * W3C Markup validation service
   * W3C Jigsaw CSS validation service
 ## Features 
 The site consists of tree pages
-* Welcome page
+* __Welcome page__
   * In the header section: positioned at the top left, the website logo, custom-designed to complement the overall style of the page, proudly showcases the name of the quiz: SoundGuess. Clicking on the logo navigates the user back to the home page, providing seamless access to the main content."
   ![Logo](./assets/images/logo.webp)
   * Provides user to type his name which will be displayed on the gaming page next to the logo, and on the top of the questions container with button for user to start to play the game.
   * ![Instruction message to start](./documentation/welcome-page.webp)
   * ![Input field with "START QUIZ" button](./documentation/input.webp)
   
-* Game page
+* __Game page__
   * ![Game Page](./documentation/game-page.webp)
   * Container that display quiz questions and options to select
   * ![Questions and Options](./documentation/question-options.webp)
@@ -83,7 +122,7 @@ The site consists of tree pages
   ![Next Button](./documentation/next-button.webp)
   * Feedback: When the user selects an option, the feedback mechanism provides a comprehensive response. If the answer is correct, it displays an image associated with the correct answer along with a success audio cue. However, if the answer is incorrect, only the fail audio cue is played.
   ![Feedback - Image correct and message](./documentation/feedback.webp)
-* Final Result
+* __Final Result__
   * A congratulatory message is shown along with the user's score. 
    ![Final Message](./documentation/final-result.webp)
    * Additionally, feedback corresponding to the user's performance is provided, with messages ranging from encouragement to reflect their score. Messages such as 'Well done! You're on the right track,' or 'Keep practicing to reach even higher!' are included to motivate users based on their quiz performance
@@ -93,13 +132,13 @@ The site consists of tree pages
 ## Testing
 
 * HTML Validation
-  *  HTML Validator (https://validator.w3.org/#validate_by_upload) was run on the index.html page of the project, and small syntax errors identified were fixed. At the final stage no errors or warnings were found.
+  *  [HTML Validator](https://validator.w3.org/#validate_by_upload) was run on the index.html page of the project, and small syntax errors identified were fixed. At the final stage no errors or warnings were found.
   ![Screenshot Html page validator ](./documentation/html-validator-soundGuess.webp)
 * CSS Validation
-  * CSS Validator (https://jigsaw.w3.org/css-validator/validator) was run on the style.css page of the project, and straight way no error or warnings were found
-  ![Screenshot Css page validator ](./documentation/css-validator-soundGuess.)
+  * [CSS Validator](https://jigsaw.w3.org/css-validator/validator) was run on the style.css page of the project, and straight way no error or warnings were found.
+  ![Screenshot Css page validator ](./documentation/css-validator-soundGuess.webp)
 * JavaScript Validation
- * JSHint Static Code Analysis Tool (https://jshint.com/) for JavaScript was used to validate the Javascript file. There were 5 no use variable that I declared in the beging, but after in the function as well, so I deleted that and I receveid some warmings related to what extensions is not available at some browers.
+ * [JSHint Static Code Analysis Tool] (https://jshint.com/) for JavaScript was used to validate the Javascript file. There were 5 no use variable that I declared in the beging, but after in the function as well, so I deleted that and I receveid some warmings related to what extensions is not available at some browers.
  ![Screenshot Js/JsHint page validator ](./documentation/jsHint.webp)
 * Performance & Accessibility
   * I used Lighthouse within the Chrome Developer Tools to allow me to test the performance, accessibility, best practices and SEO of the website, in a mobile as well.And confirmed that the colors and fonts are easy to read and that the site is accessible.
@@ -253,7 +292,7 @@ To address this issue, I made the following changes to ensure smooth audio playb
     * I would like to extend my heartfelt thanks to my dear my Husband and StepFather for all the patience, and support, to help me with ideas, and being my tester to this project be possible to be conclude.
     ### Content
     * The Logo and Favicon was created at:[Canva](https://www.canva.com/).
-    * I took inspiration from the [Get-it-right](https://github.com/tmarkec/Get-it-right) project for the implementation of the input functionalitty works properly ,
+    * I took inspiration from the [Get-it-right](https://github.com/tmarkec/Get-it-right) project for the implementation of the input functionalitty works properly , and for the idea too: [Quiz-Factor] (https://paulasdev.github.io/quiz-factor/#)
     * [Google fonts](https://fonts.google.com/) were used to import the fonts into the style.css file which is used on all pages throughout the project.
     * Part of the English content and to verification of  this website was generated with the assistance of [AI-ChatGPT](https://chat.openai.com/), an AI language model developed by OpenAI.
 
